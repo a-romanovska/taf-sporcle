@@ -36,6 +36,7 @@ build/
 
 ## Allure ##
 .allure/
+src/test/resources/allure.properties
 
 ## Logs ##
 logs/
