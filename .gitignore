@@ -39,3 +39,6 @@ build/
 
 ## Logs ##
 logs/
+
+## Properties ##
+src/main/resources/Body-login.properties
