@@ -4,6 +4,7 @@ import com.sporcle.ui.elements.Button;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -103,20 +104,20 @@ public class LogInForm extends BaseForm {
         getCloseButtonWhenClickable().click();
     }
 
-    //@Step("Click [Log In] button on LogIn modal")
+    @Step("Click [Log In] button ([Log In] form)")
     public void clickLogInButton() {
         getLogInButtonWhenClickable().click();
     }
 
     //input
-    //@Step("Input Email on LogIn modal")
+    @Step("Fill [Email] field ([Log In] form)")
     public void inputEmail(String email) {
         logger.info("inputEmail method start");
         logger.info("email = {}", email);
         getEmailInputFieldWhenClickable().inputValue(email);
     }
 
-    //@Step("Input Password on LogIn modal")
+    @Step("Fill [Password] field ([Log In] form)")
     public void inputPassword(String password) {
         logger.info("inputPassword method start");
         logger.info("password = {}", password);
