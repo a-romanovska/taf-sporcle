@@ -33,3 +33,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+## Allure ##
+.allure/
+
+## Logs ##
+logs/

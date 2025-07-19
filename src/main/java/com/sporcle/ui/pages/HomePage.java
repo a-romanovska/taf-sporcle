@@ -20,10 +20,18 @@ public class HomePage extends BasePage {
 
     //check visibility
     public boolean logInFormIsVisible() {
-        return isVisible(logInForm);
+        return checkVisibilityState(logInForm, true);
+    }
+
+    public boolean logInFormIsInvisible() {
+        return checkVisibilityState(logInForm, false);
     }
 
     public boolean settingsFormIsVisible() {
-        return isVisible(settingsForm);
+        return checkVisibilityState(settingsForm, true);
+    }
+
+    public boolean settingsFormIsInvisible() {
+        return checkVisibilityState(settingsForm, false);
     }
 }

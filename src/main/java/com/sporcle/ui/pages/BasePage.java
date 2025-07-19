@@ -1,14 +1,10 @@
 package com.sporcle.ui.pages;
 
+import com.sporcle.ui.driver.DriverManager;
 import com.sporcle.ui.finals.Endpoints;
 import com.sporcle.ui.forms.BaseForm;
 import com.sporcle.ui.forms.ProductBarForm;
-import com.sporcle.ui.utils.DriverManager;
-import com.sporcle.ui.utils.WebElementUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public abstract class BasePage {
     protected String URL = Endpoints.BASE_URL;
@@ -46,39 +42,15 @@ public abstract class BasePage {
         return DriverManager.getCurrentTitle();
     }
 
-    protected BaseForm getFormWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<? extends BaseForm> returnFormClass) {
-        WebElement webElement = WebElementUtils.getWebElementWhenConditionIsMet(condition);
-        try {
-            return returnFormClass.getConstructor(WebElement.class).newInstance(webElement);
-        } catch (Exception e) {
-            System.out.println("Ошибка при создании формы: " + returnFormClass.getName());
-            return null;
-        }
+    protected BaseForm getFormWhenVisible(By locator, Class<? extends BaseForm> returnFormClass) {
+        return DriverManager.getObjectWhenVisible(locator, returnFormClass);
     }
 
-    /*protected BaseForm getForm(By locator, Class<? extends BaseForm> returnFormClass) {
-        //WebElement webElement = WebElementUtils.getWebElement(locator);
-        return getFormWhenConditionIsMet(webElement, returnFormClass);
-    }*/
-
-    protected BaseForm getFormWhenVisible(By locator, Class<? extends BaseForm> returnFormClass) {
-        ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        //WebElement webElement = WebElementUtils.getWebElementWhenConditionIsMet(condition);
-        return getFormWhenConditionIsMet(condition, returnFormClass);
+    protected boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
+        return DriverManager.waitForVisibilityState(locator, shouldBeVisible);
     }
 
     public ProductBarForm getProductBarFormWhenVisible() {
         return (ProductBarForm) getFormWhenVisible(productBar, ProductBarForm.class);
-    }
-
-    protected boolean isVisible(By locator) {
-        return WebElementUtils.isVisible(locator);
-        /*ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        try {
-            WebElementUtils.getWebElementWhenConditionIsMet(condition);
-        } catch (TimeoutException e) {
-            return false;
-        }
-        return true;*/
     }
 }

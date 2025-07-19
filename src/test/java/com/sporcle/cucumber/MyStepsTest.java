@@ -5,7 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 
-public class MySteps {
+public class MyStepsTest {
     @Given("Print Hello")
     public void printHello() {
         System.out.println("Hello");

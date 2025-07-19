@@ -2,6 +2,7 @@ package com.sporcle.ui.forms;
 
 import com.sporcle.ui.elements.Button;
 import com.sporcle.ui.finals.Endpoints;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -59,52 +60,48 @@ public class ProductBarForm extends BaseForm {
     }
 
     //click
-    //@Step("Click [Quizzes] button on ProductBar")
+    @Step("Click [Quizzes] button (ProductBar form)")
     public void clickQuizzesButton() {
         getQuizzesButtonWhenClickable().click();
     }
 
-    //@Step("Click [Events] button on ProductBar")
+    @Step("Click [Events] button (ProductBar form)")
     public void clickEventsButton() {
         getEventsButtonWhenClickable().click();
     }
 
-    //@Step("Click [Quiz creation] button on ProductBar")
+    @Step("Click [Quiz creation] button (ProductBar form)")
     public void clickQuizCreationButton() {
         getQuizCreationButtonWhenClickable().click();
     }
 
-    //@Step("Click [Community] button on ProductBar")
+    @Step("Click [Community] button (ProductBar form)")
     public void clickCommunityButton() {
         getCommunityButtonWhenClickable().click();
     }
 
-    //@Step("Click [Videos] button on ProductBar")
+    @Step("Click [Videos] button (ProductBar form)")
     public void clickVideosButton() {
         getVideosButtonWhenClickable().click();
     }
 
-    //@Step("Click [Private events] button on ProductBar")
+    @Step("Click [Private events] button (ProductBar form)")
     public void clickPrivateEventsButton() {
         getPrivateEventsButtonWhenClickable().click();
     }
 
-    //@Step("Click [Remove Ads] button on ProductBar")
+    @Step("Click [Remove ads] button (ProductBar form)")
     public void clickRemoveAdsButton() {
         getRemoveAdsButtonWhenClickable().click();
     }
 
-    //@Step("Click [Log In] button on ProductBar")
+    @Step("Click [Sign In] button (ProductBar form)")
     public void clickLogInButton() {
-        logger.info("clickLogInButton method start");
         getLogInButtonWhenClickable().click();
-        logger.info("logInButton clicked");
     }
 
-    //@Step("Click [Settings] button on ProductBar")
+    @Step("Click [Settings] button (ProductBar form)")
     public void clickSettingsButton() {
-        logger.info("clickSettingsButton method start");
         getSettingsButtonWhenClickable().click();
-        logger.info("settingsButton clicked");
     }
 }

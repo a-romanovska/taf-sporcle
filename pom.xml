@@ -99,7 +99,7 @@
                     </argLine>
                     <useModulePath>false</useModulePath>
                     <includes>
-                        <include>DemoTest.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                     <dependenciesToScan>
                         <dependency>org.junit.jupiter:junit-jupiter-engine</dependency>

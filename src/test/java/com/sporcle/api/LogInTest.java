@@ -1,99 +1,92 @@
 package com.sporcle.api;
 
-import com.github.javafaker.Faker;
-import org.junit.jupiter.api.BeforeEach;
+import com.sporcle.ui.finals.Finals;
 import org.junit.jupiter.api.Test;
+
+import java.net.HttpURLConnection;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LogInTest {
-    private Faker faker;
-    private static String EMPTY_VALUE = "";
-    private String email;
-    private String password;
-
-    @BeforeEach
-    public void setUp() {
-        faker = new Faker();
-        email = faker.internet().emailAddress();
-        password = faker.internet().password();
-    }
-
+public class LogInTest extends BaseTest {
     @Test
     public void testLoginWithCorrectFormatEmailAndCorrectFormatPassword() {
-        LogInModal loginPage = new LogInModal(email, password, true);
+        logger.info("Start testLoginWithCorrectFormatEmailAndCorrectFormatPassword");
+        LogInForm loginPage = new LogInForm("Body-login", "set0");
 
         assertAll(
                 "Grouped Assertions of User",
-                () -> assertEquals(200, loginPage.getStatusCode()),
-                () -> assertEquals(LogInModal.ErrorTexts.INCORRECT_LOGIN_INFORMATION_ERROR_TEXT, loginPage.getErrorText()),
-                () -> assertEquals(LogInModal.ErrorTexts.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(LogInModal.ErrorTexts.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsPasswordMessage())//,
+                () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
+                () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_ERROR_TEXT, loginPage.getErrorText()),
+                () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsPasswordMessage())//,
                 //() -> assertEquals("email", loginPage.getErrorsEmailField()),//в проверке есть смысл только для поиск апо индексам
                 //() -> assertEquals("password", loginPage.getErrorsPasswordField())//в проверке есть смысл только для поиск апо индексам
         );
     }
 
     @Test
-    public void testLoginWithCorrectFormatEmailAndEmptyPassword() {//ввести только емейл
-        LogInModal loginPage = new LogInModal(faker.internet().emailAddress(), "", false);
+    public void testLoginWithCorrectFormatEmailAndEmptyPassword() {
+        logger.info("Start testLoginWithCorrectFormatEmailAndEmptyPassword");
+        LogInForm loginPage = new LogInForm("Body-login", "set1");
 
         assertAll(
-                () -> assertEquals(200, loginPage.getStatusCode()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT, loginPage.getErrorText()),
-                () -> assertEquals(EMPTY_VALUE, loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_PASSWORD_MESSAGE, loginPage.getErrorsPasswordMessage())//,
+                () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
+                () -> assertEquals(LogInForm.MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT, loginPage.getErrorText()),
+                () -> assertEquals(Finals.EMPTY_STRING, loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(LogInForm.MISSING_PASSWORD_MESSAGE, loginPage.getErrorsPasswordMessage())//,
                 //есть ли смысл проверять, что сообщения для емейла нет?
         );
     }
 
     @Test
-    public void testLoginWithEmptyEmailAndCorrectFormatPassword() {//ввести только пароль
-        LogInModal loginPage = new LogInModal("", faker.internet().password(), false);
+    public void testLoginWithEmptyEmailAndCorrectFormatPassword() {
+        logger.info("Start testLoginWithEmptyEmailAndCorrectFormatPassword");
+        LogInForm loginPage = new LogInForm("Body-login", "set2");
 
         assertAll(
-                () -> assertEquals(200, loginPage.getStatusCode()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT, loginPage.getErrorText()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_EMAIL_MESSAGE, loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(EMPTY_VALUE, loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
+                () -> assertEquals(LogInForm.MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT, loginPage.getErrorText()),
+                () -> assertEquals(LogInForm.MISSING_EMAIL_MESSAGE, loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(Finals.EMPTY_STRING, loginPage.getErrorsPasswordMessage())
         );
     }
 
     @Test
-    public void testLoginWithEmptyEmailAndEmptyPassword() {//ввести ничего
-        LogInModal loginPage = new LogInModal("", "", false);
+    public void testLoginWithEmptyEmailAndEmptyPassword() {
+        logger.info("Start testLoginWithEmptyEmailAndEmptyPassword");
+        LogInForm loginPage = new LogInForm("Body-login", "set3");
 
         assertAll(
-                () -> assertEquals(200, loginPage.getStatusCode()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT, loginPage.getErrorText()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_EMAIL_MESSAGE, loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(LogInModal.ErrorTexts.MISSING_PASSWORD_MESSAGE, loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
+                () -> assertEquals(LogInForm.MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT, loginPage.getErrorText()),
+                () -> assertEquals(LogInForm.MISSING_EMAIL_MESSAGE, loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(LogInForm.MISSING_PASSWORD_MESSAGE, loginPage.getErrorsPasswordMessage())
         );
     }
 
-    @Test
-    public void testLoginWithCorrectFormatEmailAndIncorrectFormatPassword(){
+    /*@Test
+    public void testLoginWithCorrectFormatEmailAndIncorrectFormatPassword() {
 
     }
 
     @Test
-    public void testLoginWithIncorrectFormatEmailAndCorrectFormatPassword(){
+    public void testLoginWithIncorrectFormatEmailAndCorrectFormatPassword() {
 
     }
 
     @Test
-    public void testLoginWithIncorrectFormatEmailAndIncorrectFormatPassword(){
+    public void testLoginWithIncorrectFormatEmailAndIncorrectFormatPassword() {
 
     }
 
     @Test
-    public void testLoginWithIncorrectFormatEmailAndEmptyPassword(){
+    public void testLoginWithIncorrectFormatEmailAndEmptyPassword() {
 
     }
 
     @Test
-    public void testLoginWithEmptyEmailAndIncorrectFormatPassword(){
+    public void testLoginWithEmptyEmailAndIncorrectFormatPassword() {
 
-    }
+    }*/
 }
