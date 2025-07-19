@@ -36,6 +36,10 @@ build/
 
 ## Allure ##
 .allure/
+src/test/resources/allure.properties
 
 ## Logs ##
 logs/
+
+## Properties ##
+src/main/resources/Body-login.properties
