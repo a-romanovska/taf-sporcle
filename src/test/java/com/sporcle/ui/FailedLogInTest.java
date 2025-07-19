@@ -1,6 +1,6 @@
 package com.sporcle.ui;
 
-import com.github.javafaker.Faker;
+import com.sporcle.User;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
@@ -9,6 +9,7 @@ import com.sporcle.ui.finals.ErrorMessages;
 import com.sporcle.ui.finals.Finals;
 import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,15 +20,16 @@ public class FailedLogInTest extends BaseTest {
     private LogInForm logInForm;
     private String email;
     private String password;
+    private User user;
 
     //Закрытие модального окна
-
     //Ввод неправильного email или пароля
     //Пустое поле email или пароль
     //Некорректный формат email
     //Проверка чекбокса "Stay signed in"
     //Проверка поведения при вводе слишком длинных данных в поля
     //мб нужно добавитт проверки на то, что поле не загорелось красным и тд? по сути противоположность удачному поведению
+    //добавить тест поиска?
 
     @BeforeEach
     public void setUp() {
@@ -38,9 +40,9 @@ public class FailedLogInTest extends BaseTest {
 
         logInForm = homePage.getLogInFormWhenVisible();
 
-        Faker faker = new Faker();
-        email = faker.internet().emailAddress();
-        password = faker.internet().password();
+        user = new User();
+        email = user.getEmail();
+        password = user.getPassword();
     }
 
     @Test
@@ -83,7 +85,7 @@ public class FailedLogInTest extends BaseTest {
         checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_PASSWORD);
     }
 
-    @Test
+    /*@Test
     public void testLoginWithCorrectFormatEmailAndIncorrectFormatPassword() {
         Assertions.fail("There is no test description yet");
     }
@@ -106,8 +108,8 @@ public class FailedLogInTest extends BaseTest {
     @Test
     public void testLoginWithEmptyEmailAndIncorrectFormatPassword() {
         Assertions.fail("There is no test description yet");
-    }
-    //МБ НУЖНО ПЕРЕНЕСТИ МЕТОДЫ В ОТДЕЛЬНЫЙ КЛАСС
+    }*/
+
     private void checkThatInputFieldBehavesLikeErrorWasFound(InputField inputField, Label label, ValidationMessage validationMessage, String errorMessage) {
         String validationMessageText = validationMessage.getText();
         String labelCurrentColor = label.getCssValueColor();
@@ -123,7 +125,7 @@ public class FailedLogInTest extends BaseTest {
         );
     }
 
-    //@Step("Check that [Email] field turns red AND corresponding error message appears")
+    @Step("Check that [Email] field turns red AND corresponding error message appears")
     private void checkThatEmailInputFieldBehavesLikeErrorWasFound(String errorMessage) {
         InputField inputField = logInForm.getEmailInputFieldWhenVisible();
         Label label = logInForm.getEmailLabelWhenVisible();
@@ -132,7 +134,7 @@ public class FailedLogInTest extends BaseTest {
         checkThatInputFieldBehavesLikeErrorWasFound(inputField, label, validationMessage, errorMessage);
     }
 
-    //@Step("Check that [Password] field turns red AND corresponding error message appears")
+    @Step("Check that [Password] field turns red AND corresponding error message appears")
     private void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String errorMessage) {
         InputField inputField = logInForm.getPasswordInputFieldWhenVisible();
         Label label = logInForm.getPasswordLabelWhenVisible();
