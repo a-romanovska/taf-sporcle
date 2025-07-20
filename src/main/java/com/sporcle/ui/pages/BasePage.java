@@ -50,4 +50,16 @@ public abstract class BasePage {
     public ProductBarForm getProductBarFormWhenVisible() {
         return (ProductBarForm) getFormWhenVisible(productBar, ProductBarForm.class);
     }
+
+    public static void switchToNextWindow(){
+        DriverManager.switchToNextWindow();
+    }
+
+    public static void closeCurrentWindow(){
+        DriverManager.closeCurrentWindow();
+    }
+
+    public static void switchToOriginalWindow(){
+        DriverManager.switchToOriginalWindow();
+    }
 }
