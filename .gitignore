@@ -42,5 +42,4 @@ src/test/resources/allure.properties
 logs/
 
 ## Properties ##
-src/main/resources/Body-login.properties
 src/main/resources/config.properties
