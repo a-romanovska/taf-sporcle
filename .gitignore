@@ -40,6 +40,3 @@ src/test/resources/allure.properties
 
 ## Logs ##
 logs/
-
-## Properties ##
-src/main/resources/config.properties
