@@ -28,7 +28,7 @@
         </Root>
 
         <Logger name="org.openqa.selenium.devtools" level="error" additivity="false">
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="STDOUT"/>
         </Logger>
     </Loggers>
 
