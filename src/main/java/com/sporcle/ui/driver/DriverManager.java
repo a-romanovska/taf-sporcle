@@ -91,6 +91,11 @@ public class DriverManager {
         return getObjectWhenConditionIsMet(condition, returnClass);
     }
 
+    public static <T> T getObjectWhenClickable(By locator, Class<T> returnClass) {
+        ExpectedCondition<WebElement> condition = ExpectedConditions.elementToBeClickable(locator);
+        return getObjectWhenConditionIsMet(condition, returnClass);
+    }
+
     private static boolean checkThatObjectBecomesVisible(By locator) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
         boolean isVisible = (getOrCheckObjectWhenConditionIsMet(condition) != null);
