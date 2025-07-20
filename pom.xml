@@ -104,7 +104,6 @@
                     <dependenciesToScan>
                         <dependency>org.junit.jupiter:junit-jupiter-engine</dependency>
                     </dependenciesToScan>
-                    <reportsDirectory>target/surefire-reports</reportsDirectory>
                     <failIfNoTests>true</failIfNoTests>
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
