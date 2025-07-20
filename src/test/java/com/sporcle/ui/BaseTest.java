@@ -49,7 +49,7 @@ public class BaseTest {
     }
 
     @Step("Check that expected page is opened")
-    protected void checkThatCurrentPageIsExpectedOne(BasePage expectedPage) {
+    public void checkThatCurrentPageIsExpectedOne(BasePage expectedPage) {
         String expectedUrl = expectedPage.getURL();
         String expectedTitle = expectedPage.getTitle();
 
@@ -68,28 +68,31 @@ public class BaseTest {
 
     //open page
     @Step("Open [Home] page")
-    private void openHomePage() {
+    public HomePage openHomePage() {
         homePage = new HomePage();
         homePage.open();
+        return homePage;
     }
 
     //open form
     @Step("Open [Product bar] form")
-    protected void openProductBarForm() {
+    protected ProductBarForm openProductBarForm() {
         openHomePage();
         productBarForm = homePage.getProductBarFormWhenVisible();
+        return productBarForm;
     }
 
     @Step("Open [Log In] form")
-    protected void openLogInForm() {
+    public LogInForm openLogInForm() {
         openProductBarForm();
         productBarForm.clickLogInButton();
         logInForm = homePage.getLogInFormWhenVisible();
+        return logInForm;
     }
 
     //check open
     @Step("Check that [Log In] form is opened")
-    protected void checkThatLogInFormIsVisible() {
+    public void checkThatLogInFormIsVisible() {
         Assertions.assertTrue(homePage.logInFormIsVisible(), "[Log In] form is not opened");
     }
 
@@ -102,5 +105,10 @@ public class BaseTest {
     protected void checkThatNewWindowIsOpened(BasePage basePage) {
         switchToNextWindow();
         checkThatCurrentPageIsExpectedOne(basePage);
+    }
+
+    @Step("Check visibility of form")
+    public void checkThatFormIsVisible(boolean isVisible) {
+        Assertions.assertTrue(isVisible,"Form is not visible");
     }
 }

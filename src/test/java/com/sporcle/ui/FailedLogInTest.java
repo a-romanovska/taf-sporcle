@@ -120,7 +120,7 @@ public class FailedLogInTest extends BaseTest {
     }
 
     @Step("Check that [Email] field turns red AND corresponding error message appears")
-    private void checkThatEmailInputFieldBehavesLikeErrorWasFound(String errorMessage) {
+    public void checkThatEmailInputFieldBehavesLikeErrorWasFound(String errorMessage) {
         InputField inputField = logInForm.getEmailInputFieldWhenVisible();
         Label label = logInForm.getEmailLabelWhenVisible();
         ValidationMessage validationMessage = logInForm.getEmailValidationMessageWhenVisible();
@@ -129,7 +129,7 @@ public class FailedLogInTest extends BaseTest {
     }
 
     @Step("Check that [Password] field turns red AND corresponding error message appears")
-    private void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String errorMessage) {
+    public void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String errorMessage) {
         InputField inputField = logInForm.getPasswordInputFieldWhenVisible();
         Label label = logInForm.getPasswordLabelWhenVisible();
         ValidationMessage validationMessage = logInForm.getPasswordValidationMessageWhenVisible();

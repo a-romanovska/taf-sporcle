@@ -4,6 +4,7 @@ import com.sporcle.ui.elements.Button;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
+import io.cucumber.java.en.When;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -171,6 +172,7 @@ public class LogInForm extends BaseForm {
     }
 
     @Step("Click [Log In] button ([Log In] form)")
+    @When("Click [Log In] on LogIn form")
     public void clickLogInButton() {
         //getButtonWhenClickable(logInButton).click();
         getButtonWhenClickable(logInButton).click();
