@@ -1,6 +1,6 @@
 package com.sporcle.api;
 
-import com.sporcle.ui.finals.Finals;
+import com.sporcle.finals.Finals;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

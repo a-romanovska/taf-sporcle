@@ -1,4 +1,4 @@
-package com.sporcle.ui.finals;
+package com.sporcle.finals;
 
 public class TEMPORARY {
     //xpath для LogInForm
