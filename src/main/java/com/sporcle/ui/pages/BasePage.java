@@ -1,20 +1,17 @@
 package com.sporcle.ui.pages;
 
 import com.sporcle.ui.driver.DriverManager;
-import com.sporcle.ui.finals.Endpoints;
 import com.sporcle.ui.forms.BaseForm;
 import com.sporcle.ui.forms.ProductBarForm;
 import org.openqa.selenium.By;
 
 public abstract class BasePage {
-    protected String URL = Endpoints.BASE_URL;
+    protected String URL;
     protected final String title;
-    //private final WebDriver driver;
     protected static final By productBar = By.id("product-bar");
 
     protected BasePage(String endpoint, String title) {
-        //driver = DriverManager.getDriver();
-        this.URL = URL + endpoint;
+        this.URL = endpoint;
         this.title = title;
     }
 
