@@ -27,7 +27,7 @@
             <AppenderRef ref="rollingFile" />
         </Root>
 
-        <Logger name="org.openqa.selenium.devtools" level="error" additivity="false">
+        <Logger name="org.openqa.selenium.devtools" level="fatal" additivity="false">
             <AppenderRef ref="STDOUT"/>
         </Logger>
     </Loggers>
