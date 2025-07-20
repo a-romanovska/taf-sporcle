@@ -1,4 +1,4 @@
-package com.sporcle.ui.finals;
+package com.sporcle.finals;
 
 public class ErrorMessages {
     public static final String LOGIN_MISSING_EMAIL = "Missing email or username";

@@ -43,3 +43,4 @@ logs/
 
 ## Properties ##
 src/main/resources/Body-login.properties
+src/main/resources/config.properties

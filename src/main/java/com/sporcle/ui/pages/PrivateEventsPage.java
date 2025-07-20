@@ -1,7 +1,7 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.ui.finals.Endpoints;
-import com.sporcle.ui.finals.Titles;
+import com.sporcle.finals.Endpoints;
+import com.sporcle.finals.Titles;
 
 public class PrivateEventsPage extends BasePage {
     public PrivateEventsPage() {

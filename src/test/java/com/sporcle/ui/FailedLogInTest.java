@@ -1,12 +1,12 @@
 package com.sporcle.ui;
 
 import com.sporcle.User;
+import com.sporcle.finals.Colors;
+import com.sporcle.finals.ErrorMessages;
+import com.sporcle.finals.Finals;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
-import com.sporcle.ui.finals.Colors;
-import com.sporcle.ui.finals.ErrorMessages;
-import com.sporcle.ui.finals.Finals;
 import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
 import io.qameta.allure.Step;
@@ -22,14 +22,8 @@ public class FailedLogInTest extends BaseTest {
     private String password;
     private User user;
 
-    //Закрытие модального окна
-    //Ввод неправильного email или пароля
-    //Пустое поле email или пароль
     //Некорректный формат email
-    //Проверка чекбокса "Stay signed in"
     //Проверка поведения при вводе слишком длинных данных в поля
-    //мб нужно добавитт проверки на то, что поле не загорелось красным и тд? по сути противоположность удачному поведению
-    //добавить тест поиска?
 
     @BeforeEach
     public void setUp() {

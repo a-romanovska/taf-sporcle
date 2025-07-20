@@ -1,20 +1,22 @@
 package com.sporcle.ui.pages;
 
 import com.sporcle.ui.driver.DriverManager;
-import com.sporcle.ui.finals.Endpoints;
 import com.sporcle.ui.forms.BaseForm;
+import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
+import com.sporcle.ui.forms.RegistrationForm;
 import org.openqa.selenium.By;
 
 public abstract class BasePage {
-    protected String URL = Endpoints.BASE_URL;
+    protected String URL;
     protected final String title;
-    //private final WebDriver driver;
     protected static final By productBar = By.id("product-bar");
+    protected final By logInForm = By.id("login-modal");
+    protected final By registrationForm = By.id("registration-modal");
+    protected final By settingsForm = By.id("user-dropdown");
 
     protected BasePage(String endpoint, String title) {
-        //driver = DriverManager.getDriver();
-        this.URL = URL + endpoint;
+        this.URL = endpoint;
         this.title = title;
     }
 
@@ -52,5 +54,52 @@ public abstract class BasePage {
 
     public ProductBarForm getProductBarFormWhenVisible() {
         return (ProductBarForm) getFormWhenVisible(productBar, ProductBarForm.class);
+    }
+
+    public static void switchToNextWindow() {
+        DriverManager.switchToNextWindow();
+    }
+
+    public static void closeCurrentWindow() {
+        DriverManager.closeCurrentWindow();
+    }
+
+    public static void switchToOriginalWindow() {
+        DriverManager.switchToOriginalWindow();
+    }
+
+    //get visible form
+    public LogInForm getLogInFormWhenVisible() {
+        return (LogInForm) getFormWhenVisible(logInForm, LogInForm.class);
+    }
+
+    public RegistrationForm getRegistrationFormWhenVisible() {
+        return (RegistrationForm) getFormWhenVisible(registrationForm, RegistrationForm.class);
+    }
+
+    //check if visible
+    public boolean logInFormIsVisible() {
+        return checkVisibilityState(logInForm, true);
+    }
+
+    public boolean registrationFormIsVisible() {
+        return checkVisibilityState(registrationForm, true);
+    }
+
+    public boolean settingsFormIsVisible() {
+        return checkVisibilityState(settingsForm, true);
+    }
+
+    //check if invisible
+    public boolean logInFormIsInvisible() {
+        return checkVisibilityState(logInForm, false);
+    }
+
+    public boolean registrationFormIsInvisible() {
+        return checkVisibilityState(registrationForm, false);
+    }
+
+    public boolean settingsFormIsInvisible() {
+        return checkVisibilityState(settingsForm, false);
     }
 }

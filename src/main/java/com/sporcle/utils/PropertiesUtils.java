@@ -8,12 +8,6 @@ public class PropertiesUtils {
     public static Properties readPropertiesFromResource(String resourceName) {
         Properties properties = new Properties();
 
-        /*try (FileInputStream fis = new FileInputStream(fileName)) {
-            properties.load(fis);
-        } catch (IOException e) {
-            System.err.println("Ошибка при чтении properties: " + e.getMessage());
-        }*/
-
         try (InputStream inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream(resourceName)) {
             if (inputStream == null) {
                 System.err.println("Ресурс не найден: " + resourceName);
@@ -42,5 +36,9 @@ public class PropertiesUtils {
             }
         }
         return setProperties;
+    }
+
+    public static String getBaseUrl() {
+        return readPropertiesFromResource("config.properties").getProperty("baseUrl");
     }
 }

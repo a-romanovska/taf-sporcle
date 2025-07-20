@@ -1,19 +1,18 @@
 package com.sporcle.ui.forms;
 
 import com.sporcle.ui.elements.Button;
-import com.sporcle.ui.finals.Endpoints;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ProductBarForm extends BaseForm {
     private final String formXpath = "//nav[@id='product-bar']";
-    private final By quizzesButton = By.xpath(formXpath + "//a[@href='" + Endpoints.HOME + "']");
-    private final By eventsButton = By.xpath(formXpath + "//a[@href='" + Endpoints.EVENTS + "']");
-    private final By quizCreationButton = By.xpath(formXpath + "//a[@href='" + Endpoints.QUIZ_CREATION + "']");
-    private final By communityButton = By.xpath(formXpath + "//a[@href='" + Endpoints.COMMUNITY + "']");
-    private final By videosButton = By.xpath(formXpath + "//a[@href='" + Endpoints.VIDEOS + "']");
-    private final By privateEventsButton = By.xpath(formXpath + "//a[@href='" + Endpoints.PRIVATE_EVENTS + "']");
+    private final By quizzesButton = By.xpath(formXpath + "//a[@href='/']");
+    private final By eventsButton = By.xpath(formXpath + "//a[@href='/events/']");
+    private final By quizCreationButton = By.xpath(formXpath + "//a[@href='/create/']");
+    private final By communityButton = By.xpath(formXpath + "//a[@href='/groups/']");
+    private final By videosButton = By.xpath(formXpath + "//a[@href='/videos/']");
+    private final By privateEventsButton = By.xpath(formXpath + "//a[@href='/events/private-events/']");
     private final By removeAdsButton = By.id("remove-ads");
     private final By logInButton = By.id("user-not-logged-in");
     private final By settingsButton = By.id("user-box");

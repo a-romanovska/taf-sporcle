@@ -1,6 +1,6 @@
 package com.sporcle.api;
 
-import com.sporcle.ui.finals.Finals;
+import com.sporcle.finals.Finals;
 import com.sporcle.utils.PropertiesUtils;
 import io.restassured.path.json.JsonPath;
 import io.restassured.path.json.exception.JsonPathException;

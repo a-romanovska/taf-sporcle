@@ -1,4 +1,4 @@
-package com.sporcle.ui.finals;
+package com.sporcle.finals;
 
 public class Titles {
     public static String HOME_PAGE = "Sporcle | Play Fun Trivia Quizzes on Every Topic";
@@ -8,4 +8,9 @@ public class Titles {
     public static String VIDEOS_PAGE = "Sporcle Videos";
     public static String PRIVATE_EVENTS_PAGE = "Trivia Hosting For Your Next Party or Event | In-Person or Virtually";
     public static String REMOVE_ADS_PAGE = "Memberships on Sporcle";
+    public static String COMMUNITY_GUIDELINES = "Community Guidelines";
+    public static String FACEBOOK_ACCOUNT = "Update your Sporcle Account";
+    public static String FORGOT_PASSWORD = "Forgot Password on Sporcle";
+    public static String CONTINUE_WITH_GOOGLE = "Вход – Google Аккаунты";
+    public static String CONTINUE_WITH_APPLE = "Вход в Аккаунт Apple";
 }
