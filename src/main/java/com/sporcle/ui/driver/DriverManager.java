@@ -1,6 +1,8 @@
 package com.sporcle.ui.driver;
 
-import com.sporcle.ui.finals.Finals;
+import com.sporcle.finals.Finals;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,9 +12,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Set;
 
 public class DriverManager {
     private static WebDriver driver;
+    private static String originalWindow;
+
+    private static Logger logger = LogManager.getLogger();
 
     private DriverManager() {
     }
@@ -21,6 +27,7 @@ public class DriverManager {
         if (driver == null) {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
+            originalWindow = driver.getWindowHandle();
         }
         return driver;
     }
@@ -34,6 +41,10 @@ public class DriverManager {
             driver.quit();
             driver = null;
         }
+    }
+
+    public static void closeCurrentWindow() {
+        driver.close();
     }
 
     public static String getCurrentUrl() {
@@ -56,17 +67,17 @@ public class DriverManager {
         return DriverManager.getDriver().findElement(locator);
     }
 
-    private static <T> T getOrCheckWebElementWhenConditionIsMet(ExpectedCondition<T> condition, int specifiedTimeoutSeconds) {
+    private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition, int specifiedTimeoutSeconds) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(specifiedTimeoutSeconds));
         return wait.until(condition);
     }
 
-    private static <T> T getOrCheckWebElementWhenConditionIsMet(ExpectedCondition<T> condition) {
-        return getOrCheckWebElementWhenConditionIsMet(condition, Finals.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
+    private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition) {
+        return getOrCheckObjectWhenConditionIsMet(condition, Finals.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
     }
 
     private static <T> T getObjectWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<T> returnClass) {
-        WebElement webElement = DriverManager.getOrCheckWebElementWhenConditionIsMet(condition);
+        WebElement webElement = DriverManager.getOrCheckObjectWhenConditionIsMet(condition);
         try {
             return returnClass.getConstructor(WebElement.class).newInstance(webElement);
         } catch (Exception e) {
@@ -82,13 +93,13 @@ public class DriverManager {
 
     private static boolean checkThatObjectBecomesVisible(By locator) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        boolean isVisible = (getOrCheckWebElementWhenConditionIsMet(condition) != null);
+        boolean isVisible = (getOrCheckObjectWhenConditionIsMet(condition) != null);
         return isVisible;
     }
 
     private static boolean checkThatObjectBecomesInvisible(By locator) {
         ExpectedCondition<Boolean> condition = ExpectedConditions.invisibilityOfElementLocated(locator);
-        boolean isInvisible = getOrCheckWebElementWhenConditionIsMet(condition);
+        boolean isInvisible = getOrCheckObjectWhenConditionIsMet(condition);
         return isInvisible;
     }
 
@@ -98,11 +109,24 @@ public class DriverManager {
         } else {
             return checkThatObjectBecomesInvisible(locator);
         }
-        /*try {
-            getObjectWhenVisible(locator, BaseForm.class);
-        } catch (Exception e) {
-            return false;
+    }
+
+    public static void switchToNextWindow() {
+        getOrCheckObjectWhenConditionIsMet(ExpectedConditions.numberOfWindowsToBe(2));
+
+        Set<String> windowHandles = getDriver().getWindowHandles();
+
+        for (String handle : windowHandles) {
+            if (!handle.equals(originalWindow)) {
+                driver.switchTo().window(handle);
+                logger.info("More than one window were found");
+                break;
+            }
         }
-        return true;*/
+    }
+
+    public static void switchToOriginalWindow() {
+        driver.switchTo().window(originalWindow);
+        logger.info("Switched to original window");
     }
 }
