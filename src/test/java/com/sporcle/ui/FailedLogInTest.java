@@ -1,12 +1,12 @@
 package com.sporcle.ui;
 
 import com.sporcle.User;
+import com.sporcle.finals.Colors;
+import com.sporcle.finals.ErrorMessages;
+import com.sporcle.finals.Finals;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
-import com.sporcle.ui.finals.Colors;
-import com.sporcle.ui.finals.ErrorMessages;
-import com.sporcle.ui.finals.Finals;
 import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
 import io.qameta.allure.Step;
