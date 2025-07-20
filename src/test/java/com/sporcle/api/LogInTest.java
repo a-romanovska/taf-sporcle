@@ -1,6 +1,6 @@
 package com.sporcle.api;
 
-import com.sporcle.ui.finals.Finals;
+import com.sporcle.finals.Finals;
 import org.junit.jupiter.api.Test;
 
 import java.net.HttpURLConnection;
