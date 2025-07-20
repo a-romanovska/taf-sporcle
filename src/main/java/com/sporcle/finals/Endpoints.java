@@ -13,4 +13,5 @@ public class Endpoints {
     public static final String REMOVE_ADS = BASE_URL + "/memberships/?rp=user_box_remove_ads_link";
 
     public static final String PART_OF_CONTINUE_WITH_GOOGLE = "accounts.google.com";
+    public static final String PART_OF_CONTINUE_WITH_APPLE = "appleid.apple.com";
 }

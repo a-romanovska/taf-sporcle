@@ -9,5 +9,6 @@ public class Titles {
     public static String PRIVATE_EVENTS_PAGE = "Trivia Hosting For Your Next Party or Event | In-Person or Virtually";
     public static String REMOVE_ADS_PAGE = "Memberships on Sporcle";
 
-    public static String CONTINUE_WITH_GOOGLE = "Вход – Google Аккаунты";
+    public static String CONTINUE_WITH_GOOGLE = "Вход – Google Аккаунты";
+    public static String CONTINUE_WITH_APPLE = "Вход в Аккаунт Apple";
 }
