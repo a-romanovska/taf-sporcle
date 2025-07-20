@@ -10,13 +10,15 @@ import org.openqa.selenium.WebElement;
 
 public class LogInForm extends BaseForm {
     private final By closeButton = By.xpath("//button[@class='modal-close']");
-    private final By logInButton = By.id("log-in-button");
+    private final By continueWithGoogleButton = By.xpath("//button[contains(@class, 'google-signup')]");
+    private final By continueWithAppleButton = By.id("apple-signin");
     private final By emailInputField = By.id("email");
     private final By emailLabel = By.xpath("//label[@for='email']");
     private final By emailValidationMessage = By.id("email-error");
     private final By passwordInputField = By.id("password");
     private final By passwordLabel = By.xpath("//label[@for='password']");
     private final By passwordValidationMessage = By.id("password-error");
+    private final By logInButton = By.id("log-in-button");
 
     public LogInForm(WebElement form) {
         super(form);
@@ -27,8 +29,12 @@ public class LogInForm extends BaseForm {
         return (Button) getElementWhenClickable(closeButton, Button.class);
     }
 
-    public Button getLogInButtonWhenClickable() {
-        return (Button) getElementWhenClickable(logInButton, Button.class);
+    public Button getContinueWithGoogleButtonWhenClickable() {
+        return (Button) getElementWhenClickable(continueWithGoogleButton, Button.class);
+    }
+
+    public Button getContinueWithAppleButtonWhenClickable() {
+        return (Button) getElementWhenClickable(continueWithAppleButton, Button.class);
     }
 
     public InputField getEmailInputFieldWhenClickable() {
@@ -37,6 +43,10 @@ public class LogInForm extends BaseForm {
 
     public InputField getPasswordInputFieldWhenClickable() {
         return (InputField) getElementWhenClickable(passwordInputField, InputField.class);
+    }
+
+    public Button getLogInButtonWhenClickable() {
+        return (Button) getElementWhenClickable(logInButton, Button.class);
     }
 
     //get visible element
@@ -100,8 +110,19 @@ public class LogInForm extends BaseForm {
     }
 
     //click
+    @Step("Click [Close] button ([Log In] form)")
     public void clickCloseButton() {
         getCloseButtonWhenClickable().click();
+    }
+
+    @Step("Click [Continue with Google] button ([Log In] form)")
+    public void clickContinueWithGoogleButton() {
+        getContinueWithGoogleButtonWhenClickable().click();
+    }
+
+    @Step("Click [Continue with Apple] button ([Log In] form)")
+    public void clickContinueWithAppleButton() {
+        getContinueWithAppleButtonWhenClickable().click();
     }
 
     @Step("Click [Log In] button ([Log In] form)")
