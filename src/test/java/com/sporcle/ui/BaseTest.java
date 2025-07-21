@@ -108,7 +108,7 @@ public class BaseTest {
     }
 
     @Step("Check visibility of form")
-    public void checkThatFormIsVisible(boolean isVisible) {
+    public void assertVisibilityOfForm(boolean isVisible) {
         Assertions.assertTrue(isVisible,"Form is not visible");
     }
 }
