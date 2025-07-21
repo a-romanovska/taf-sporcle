@@ -19,9 +19,6 @@ public class FailedLogInTest extends BaseTest {
     private String email;
     private String password;
 
-    //Некорректный формат email
-    //Проверка поведения при вводе слишком длинных данных в поля
-
     @BeforeEach
     public void setUp() {
         openLogInForm();
@@ -70,31 +67,6 @@ public class FailedLogInTest extends BaseTest {
         checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_EMAIL);
         checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_PASSWORD);
     }
-
-    /*@Test
-    public void testLoginWithCorrectFormatEmailAndIncorrectFormatPassword() {
-        Assertions.fail("There is no test description yet");
-    }
-
-    @Test
-    public void testLoginWithIncorrectFormatEmailAndCorrectFormatPassword() {
-        Assertions.fail("There is no test description yet");
-    }
-
-    @Test
-    public void testLoginWithIncorrectFormatEmailAndIncorrectFormatPassword() {
-        Assertions.fail("There is no test description yet");
-    }
-
-    @Test
-    public void testLoginWithIncorrectFormatEmailAndEmptyPassword() {
-        Assertions.fail("There is no test description yet");
-    }
-
-    @Test
-    public void testLoginWithEmptyEmailAndIncorrectFormatPassword() {
-        Assertions.fail("There is no test description yet");
-    }*/
 
     private void checkThatInputFieldBehavesLikeErrorWasFound(InputField inputField, Label label, ValidationMessage validationMessage, String errorMessage) {
         String validationMessageText = validationMessage.getText();
