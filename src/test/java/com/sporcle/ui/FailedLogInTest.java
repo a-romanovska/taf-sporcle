@@ -1,7 +1,7 @@
 package com.sporcle.ui;
 
 import com.sporcle.User;
-import com.sporcle.finals.Colors;
+import com.sporcle.finals.Color;
 import com.sporcle.finals.ErrorMessages;
 import com.sporcle.finals.Finals;
 import com.sporcle.ui.elements.InputField;
@@ -9,6 +9,7 @@ import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
 import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
+import com.sporcle.utils.ColorConverterUtils;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,15 +111,17 @@ public class FailedLogInTest extends BaseTest {
         String inputFieldCurrentBorderBottomColor = inputField.getCssValueBorderBottomColor();
         String validationMessageColor = validationMessage.getCssValueColor();
 
+        String errorColorAsHex = Color.RED_ERROR.getHexCode();
+        String labelCurrentColorAsHex = ColorConverterUtils.rgbaToHex(labelCurrentColor);
+        String inputFieldCurrentBorderBottomColorAsHex = ColorConverterUtils.rgbaToHex(inputFieldCurrentBorderBottomColor);
+        String validationMessageColorAsHex = ColorConverterUtils.rgbaToHex(validationMessageColor);
+
         assertAll(
                 "Checking that InputField behaves like error was found in it",
                 () -> Assertions.assertEquals(errorMessage, validationMessageText, "ValidationMessage text is incorrect"),
-                //() -> Assertions.assertEquals(Colors.ERROR, labelCurrentColor, "Label color is not Colors.ERROR"),
-                //() -> Assertions.assertEquals(Colors.ERROR, inputFieldCurrentBorderBottomColor, "InputField border bottom color is not Colors.ERROR"),
-                //() -> Assertions.assertEquals(Colors.ERROR, validationMessageColor, "ValidationMessage color is not Colors.ERROR")
-                () -> Assertions.assertTrue(labelCurrentColor.contains(Colors.ERROR), "Label color is not Colors.ERROR"),
-                () -> Assertions.assertTrue(inputFieldCurrentBorderBottomColor.contains(Colors.ERROR), "InputField border bottom color is not Colors.ERROR"),
-                () -> Assertions.assertTrue(validationMessageColor.contains(Colors.ERROR), "ValidationMessage color is not Colors.ERROR")
+                () -> Assertions.assertTrue(labelCurrentColorAsHex.contains(errorColorAsHex), "Label color is not Colors.ERROR"),
+                () -> Assertions.assertTrue(inputFieldCurrentBorderBottomColorAsHex.contains(errorColorAsHex), "InputField border bottom color is not Colors.ERROR"),
+                () -> Assertions.assertTrue(validationMessageColorAsHex.contains(errorColorAsHex), "ValidationMessage color is not Colors.ERROR")
         );
     }
 

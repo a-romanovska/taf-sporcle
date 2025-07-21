@@ -72,7 +72,7 @@ public class DriverManager {
         return getOrCheckObjectWhenConditionIsMet(condition, Finals.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
     }
 
-    private static <T> T getObjectWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<T> returnClass) {
+    private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<T> returnClass) {
         WebElement webElement = DriverManager.getOrCheckObjectWhenConditionIsMet(condition);
         try {
             return returnClass.getConstructor(WebElement.class).newInstance(webElement);
@@ -84,12 +84,12 @@ public class DriverManager {
 
     public static <T> T getObjectWhenVisible(By locator, Class<T> returnClass) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        return getObjectWhenConditionIsMet(condition, returnClass);
+        return getOrCheckObjectWhenConditionIsMet(condition, returnClass);
     }
 
     public static <T> T getObjectWhenClickable(By locator, Class<T> returnClass) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.elementToBeClickable(locator);
-        return getObjectWhenConditionIsMet(condition, returnClass);
+        return getOrCheckObjectWhenConditionIsMet(condition, returnClass);
     }
 
     private static boolean checkThatObjectBecomesVisible(By locator) {

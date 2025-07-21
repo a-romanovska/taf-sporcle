@@ -37,7 +37,7 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testRegistrationFormOpen() {
         logInForm.clickJoinSporcleForFreeButton();
-        logInForm.clickJoinSporcleForFreeButton();//мб добавить повторну попытку если не получилось
+        //logInForm.clickJoinSporcleForFreeButton();//мб добавить повторну попытку если не получилось
         assertVisibilityOfForm(homePage.registrationFormIsVisible());
         //переписать метод под передвчу формы, а не boolean, если это не помешает кукумберу
     }
