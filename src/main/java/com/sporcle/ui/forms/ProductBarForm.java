@@ -13,7 +13,7 @@ public class ProductBarForm extends BaseForm {
     private final By communityButton = By.xpath(formXpath + "//a[@href='/groups/']");
     private final By videosButton = By.xpath(formXpath + "//a[@href='/videos/']");
     private final By privateEventsButton = By.xpath(formXpath + "//a[@href='/events/private-events/']");
-    private final By removeAdsButton = By.xpath("//*[@id='remove-ads']//a");
+    private final By removeAdsButton = By.id("remove-ads");
     private final By logInButton = By.id("user-not-logged-in");
     private final By settingsButton = By.id("user-box");
 
