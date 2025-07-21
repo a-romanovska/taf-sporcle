@@ -12,7 +12,11 @@ public abstract class BaseElement {
     }
 
     public void click() {
-        element.click();
+       // try {
+            element.click();
+        /*} catch (TimeoutException | ElementNotInteractableException e) {
+            element.click();
+        }*/
     }
 
     public String getText() {

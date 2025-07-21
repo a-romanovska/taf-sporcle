@@ -59,10 +59,6 @@ public class DriverManager {
         }
     }
 
-    private static WebElement getWebElement(By locator) {
-        return DriverManager.getDriver().findElement(locator);
-    }
-
     private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition, int specifiedTimeoutSeconds) {
         WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(specifiedTimeoutSeconds));
         return wait.until(condition);
