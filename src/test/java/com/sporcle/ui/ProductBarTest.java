@@ -50,6 +50,7 @@ public class ProductBarTest extends BaseTest {
     @Test
     public void testOpenRemoveAdsPage() {
         productBarForm.clickRemoveAdsButton();
+        productBarForm.clickRemoveAdsButton();//добавила клик
         checkThatCurrentPageIsExpectedOne(new RemoveAdsPage());
     }
 
