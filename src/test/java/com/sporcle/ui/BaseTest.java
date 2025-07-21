@@ -76,7 +76,7 @@ public class BaseTest {
 
     //open form
     @Step("Open [Product bar] form")
-    protected ProductBarForm openProductBarForm() {
+    public ProductBarForm openProductBarForm() {
         openHomePage();
         productBarForm = homePage.getProductBarFormWhenVisible();
         return productBarForm;
@@ -97,7 +97,7 @@ public class BaseTest {
     }
 
     @Step("Check that [Settings] form is opened")
-    protected void checkThatSettingsFormIsVisible() {
+    public void checkThatSettingsFormIsVisible() {
         Assertions.assertTrue(homePage.settingsFormIsVisible(), "[Settings] form is not opened");
     }
 
@@ -105,10 +105,5 @@ public class BaseTest {
     protected void checkThatNewWindowIsOpened(BasePage basePage) {
         switchToNextWindow();
         checkThatCurrentPageIsExpectedOne(basePage);
-    }
-
-    @Step("Check visibility of form")
-    public void assertVisibilityOfForm(boolean isVisible) {
-        Assertions.assertTrue(isVisible,"Form is not visible");
     }
 }

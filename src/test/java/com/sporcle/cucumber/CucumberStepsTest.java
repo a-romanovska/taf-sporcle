@@ -1,5 +1,6 @@
-package com.sporcle.ui;
+package com.sporcle.cucumber;
 
+import com.sporcle.ui.BaseTest;
 import com.sporcle.ui.forms.ProductBarForm;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
