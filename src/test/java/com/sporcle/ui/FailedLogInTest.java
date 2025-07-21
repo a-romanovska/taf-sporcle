@@ -7,8 +7,6 @@ import com.sporcle.finals.Finals;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
-import com.sporcle.ui.forms.LogInForm;
-import com.sporcle.ui.forms.ProductBarForm;
 import com.sporcle.utils.ColorConverterUtils;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
@@ -18,24 +16,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class FailedLogInTest extends BaseTest {
-    private LogInForm logInForm;
     private String email;
     private String password;
-    private User user;
 
     //Некорректный формат email
     //Проверка поведения при вводе слишком длинных данных в поля
 
     @BeforeEach
     public void setUp() {
-        super.setUp();
+        openLogInForm();
 
-        ProductBarForm productBarForm = homePage.getProductBarFormWhenVisible();
-        productBarForm.clickLogInButton();
-
-        logInForm = homePage.getLogInFormWhenVisible();
-
-        user = new User();
+        User user = new User();
         email = user.getEmail();
         password = user.getPassword();
     }

@@ -1,6 +1,7 @@
 package com.sporcle.ui;
 
 import com.sporcle.ui.pages.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testCloseLogInFormViaCloseButton() {
         logInForm.clickCloseButton();
-        assertVisibilityOfForm(homePage.logInFormIsVisible());
+        Assertions.assertTrue(homePage.logInFormIsVisible(),"Log In form is not visible");
     }
 
     @Test
@@ -34,12 +35,10 @@ public class LogInFormTest extends BaseTest {
         checkThatCurrentPageIsExpectedOne(new CommunityGuidelinesPage());
     }
 
-    //мб добавить повторну попытку если не получилось
-    //переписать метод под передвчу формы, а не boolean, если это не помешает кукумберу
     @Test
     public void testRegistrationFormOpen() {
         logInForm.clickJoinSporcleForFreeButton();
-        assertVisibilityOfForm(homePage.registrationFormIsVisible());
+        Assertions.assertTrue(homePage.registrationFormIsVisible(),"Registration form is not visible");
     }
 
     @Test
