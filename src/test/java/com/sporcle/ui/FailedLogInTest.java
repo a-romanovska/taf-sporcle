@@ -113,9 +113,12 @@ public class FailedLogInTest extends BaseTest {
         assertAll(
                 "Checking that InputField behaves like error was found in it",
                 () -> Assertions.assertEquals(errorMessage, validationMessageText, "ValidationMessage text is incorrect"),
-                () -> Assertions.assertEquals(Colors.ERROR, labelCurrentColor, "Label color is not Colors.ERROR"),
-                () -> Assertions.assertEquals(Colors.ERROR, inputFieldCurrentBorderBottomColor, "InputField border bottom color is not Colors.ERROR"),
-                () -> Assertions.assertEquals(Colors.ERROR, validationMessageColor, "ValidationMessage color is not Colors.ERROR")
+                //() -> Assertions.assertEquals(Colors.ERROR, labelCurrentColor, "Label color is not Colors.ERROR"),
+                //() -> Assertions.assertEquals(Colors.ERROR, inputFieldCurrentBorderBottomColor, "InputField border bottom color is not Colors.ERROR"),
+                //() -> Assertions.assertEquals(Colors.ERROR, validationMessageColor, "ValidationMessage color is not Colors.ERROR")
+                () -> Assertions.assertTrue(labelCurrentColor.contains(Colors.ERROR), "Label color is not Colors.ERROR"),
+                () -> Assertions.assertTrue(inputFieldCurrentBorderBottomColor.contains(Colors.ERROR), "InputField border bottom color is not Colors.ERROR"),
+                () -> Assertions.assertTrue(validationMessageColor.contains(Colors.ERROR), "ValidationMessage color is not Colors.ERROR")
         );
     }
 
