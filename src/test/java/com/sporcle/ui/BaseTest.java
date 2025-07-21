@@ -1,5 +1,6 @@
 package com.sporcle.ui;
 
+import com.sporcle.ui.forms.HomePageContextBarForm;
 import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
 import com.sporcle.ui.pages.BasePage;
@@ -7,6 +8,8 @@ import com.sporcle.ui.pages.ContinueWithApplePage;
 import com.sporcle.ui.pages.ContinueWithGooglePage;
 import com.sporcle.ui.pages.HomePage;
 import io.qameta.allure.Step;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +20,8 @@ public class BaseTest {
     protected HomePage homePage;
     protected ProductBarForm productBarForm;
     protected LogInForm logInForm;
+    protected HomePageContextBarForm homePageContextBarForm;
+    protected static final Logger logger = LogManager.getLogger();
 
     @BeforeEach
     protected void setUp() {
@@ -88,6 +93,13 @@ public class BaseTest {
         productBarForm.clickLogInButton();
         logInForm = homePage.getLogInFormWhenVisible();
         return logInForm;
+    }
+
+    @Step("Open [Context bar] form")
+    public HomePageContextBarForm openContextBarForm() {
+        openHomePage();
+        homePageContextBarForm = homePage.getContextBarFormWhenVisible();
+        return homePageContextBarForm;
     }
 
     //check open

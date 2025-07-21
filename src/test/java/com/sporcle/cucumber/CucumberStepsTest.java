@@ -34,9 +34,4 @@ public class CucumberStepsTest {
     public void checkThatSettingsFormIsVisible() {
         baseTest.checkThatSettingsFormIsVisible();
     }
-
-    @Then("Quit Driver")
-    public void quitDriver() {
-        baseTest.quitDriver();
-    }
 }

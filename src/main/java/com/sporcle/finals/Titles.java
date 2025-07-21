@@ -13,4 +13,5 @@ public class Titles {
     public static String FORGOT_PASSWORD = "Forgot Password on Sporcle";
     public static String CONTINUE_WITH_GOOGLE = "Вход – Google Аккаунты";
     public static String CONTINUE_WITH_APPLE = "Вход в Аккаунт Apple";
+    public static String SEARCH = "Sporcle Search for ''";
 }

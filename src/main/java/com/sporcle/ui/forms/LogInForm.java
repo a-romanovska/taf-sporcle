@@ -182,14 +182,14 @@ public class LogInForm extends BaseForm {
     @Step("Fill [Email] field ([Log In] form)")
     public void inputEmail(String email) {
         logger.info("inputEmail method start");
-        logger.info("email = {}", email);
         getInputFieldWhenClickable(emailInputField).inputValue(email);
+        logger.info("email = {}", email);
     }
 
     @Step("Fill [Password] field ([Log In] form)")
     public void inputPassword(String password) {
         logger.info("inputPassword method start");
-        logger.info("password = {}", password);
         getInputFieldWhenClickable(passwordInputField).inputValue(password);
+        logger.info("password = {}", password);
     }
 }
