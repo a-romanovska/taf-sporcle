@@ -13,7 +13,6 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testCloseLogInFormViaCloseButton() {
         logInForm.clickCloseButton();
-        //Assertions.assertTrue(homePage.logInFormIsInvisible());
         checkThatFormIsVisible(homePage.logInFormIsVisible());
     }
 
@@ -38,8 +37,9 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testRegistrationFormOpen() {
         logInForm.clickJoinSporcleForFreeButton();
-        //Assertions.assertTrue(homePage.registrationFormIsVisible());
+        logInForm.clickJoinSporcleForFreeButton();//мб добавить повторну попытку если не получилось
         checkThatFormIsVisible(homePage.registrationFormIsVisible());
+        //переписать метод под передвчу формы, а не boolean, если это не помешает кукумберу
     }
 
     @Test
