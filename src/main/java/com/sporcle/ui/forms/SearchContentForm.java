@@ -9,6 +9,7 @@ public class SearchContentForm extends BaseForm {
     private final String searchResultsListXpath = "//ol[@id='searchResults']";
     private final String searchResult1Xpath = searchResultsListXpath + "//li[1]";
     private final By searchResult1GameTitle = By.xpath(searchResult1Xpath + "//div[@class='gameTitle']");
+    private final By searchResult1GameDescription = By.xpath(searchResult1Xpath + "//p[@class='gameDesc']");
     private final By noQuizzesFoundMessage = By.xpath("//div[@id='columnContainer']//h2");
 
     public SearchContentForm(WebElement form) {
@@ -19,6 +20,10 @@ public class SearchContentForm extends BaseForm {
         return getListElementWhenVisible(searchResult1GameTitle);
     }
 
+    public ListElement getSearchResult1GameDescriptionWhenVisible() {
+        return getListElementWhenVisible(searchResult1GameDescription);
+    }
+
     public ValidationMessage getNoQuizzesFoundMessageWhenVisible() {
         return getValidationMessageWhenVisible(noQuizzesFoundMessage);
     }
@@ -26,6 +31,10 @@ public class SearchContentForm extends BaseForm {
     //get text
     public String getSearchResult1GameTitleText() {
         return getSearchResult1GameTitleWhenVisible().getText();
+    }
+
+    public String getSearchResult1GameDescriptionText() {
+        return getSearchResult1GameDescriptionWhenVisible().getText();
     }
 
     public String getNoQuizzesFoundMessageText() {
