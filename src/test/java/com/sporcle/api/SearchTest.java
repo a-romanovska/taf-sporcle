@@ -1,135 +1,156 @@
 package com.sporcle.api;
 
+import com.sporcle.Constants;
 import com.sporcle.enums.ErrorMessage;
 import io.qameta.allure.Step;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class SearchTest extends BaseTest {
+    private SearchPage searchPage;
     private String searchValue;
+    private final String oneWord = "apple";
+    private final String twoWords = "Word Ladder";
+    private final String moreThanTwoWords = "Pic winner 30";
+    private final String emptyWord = Constants.EMPTY_VALUE;
+    private final String wordWithSpaceBeforeAndAfter = " dog ";
+    private final String spaceWord = Constants.SPACE_VALUE;
+    private final String nonExistentWord = "kdakdksad";
+
+    @Override
+    @BeforeEach
+    protected void setUp() {
+        searchPage = new SearchPage();
+    }
 
     @Test
     public void testSearchOneWord() {
-        searchValue = "apple";
-        checkSearchResults();
+        searchValue = oneWord;
+        checkSearchResult();
     }
 
     @Test
     public void testSearchTwoWordsWithSpace() {
-        searchValue = "Word Ladder";
-        checkSearchResults();
+        searchValue = twoWords;
+        checkSearchResult();
     }
 
     @Test
     public void testSearchMoreThanTwoWords() {
-        searchValue = "Pic winner 30";
-        checkSearchResults();
+        searchValue = moreThanTwoWords;
+        checkSearchResult();
     }
 
     @Test
     public void testSearchEmptyWord() {
-        searchValue = "";
-        checkSearchResults();
+        searchValue = emptyWord;
+        checkSearchResult();
     }
 
     @Test
     public void testSearchWordWithSpaceBeforeAndAfter() {
-        searchValue = " dog ";
-        checkSearchResults();
+        searchValue = wordWithSpaceBeforeAndAfter;
+        checkSearchResult();
     }
 
     @Test
     public void testSearchSpaceWord() {
-        searchValue = " ";
-        checkSearchResults();
+        searchValue = spaceWord;
+        checkSearchResult();
     }
 
     @Test
     public void testSearchNonExistentWord() {
-        searchValue = "kdakdksad";
+        searchValue = nonExistentWord;
         checkNoQuizzesFoundMessage();
     }
 
-    private boolean gameTitleAndDescriptionLinksAreNotNull(Element gameTitleLink, Element gameDescriptionLink) {
-        if (gameTitleLink == null) {
+    @Step("Check that search result is correct")
+    private void checkSearchResult() {
+        logger.info("SearchValue is '" + searchValue + "'");
+
+        String responseHtml = searchPage.doSearch(searchValue);
+
+        Document doc = Jsoup.parse(responseHtml);
+        Element gameTitle = doc.selectFirst(searchPage.getGameTitleCss());
+        Element gameDescription = doc.selectFirst(searchPage.getGameDescriptionCss());
+
+        try {
+            Assertions.assertTrue(arePresent(gameTitle, gameDescription), "No quizzes are displayed");
+        } catch (AssertionError error) {
+            return;
+        }
+
+        if (searchValue.isEmpty() || searchValue.equals(" ")) {
+            logger.info("Random quizzes are shown for empty SearchValue - correct");
+            return;
+        }
+
+        boolean wordIsPresentInResult;
+        String gameTitleText = gameTitle.text().toUpperCase();
+        String gameDescriptionText = gameDescription.text().toUpperCase();
+        String[] wordsFromSearchValue = searchValue.trim().toUpperCase().split("\\s+");
+
+        for (String word : wordsFromSearchValue) {
+            wordIsPresentInResult = false;
+
+            if (gameTitleText.contains(word) || gameDescriptionText.contains(word)) {
+                logger.info("Word '" + word + "' was found");
+                wordIsPresentInResult = true;
+            }
+            Assertions.assertTrue(wordIsPresentInResult, "Nothing is found for SearchValue");
+        }
+    }
+
+    @Step("Check that 'No quizzes found' message is displayed instead of search result")
+    private void checkNoQuizzesFoundMessage() {
+        logger.info("SearchValue is '" + searchValue + "'");
+
+        String responseHtml = searchPage.doSearch(searchValue);
+
+        Document doc = Jsoup.parse(responseHtml);
+        Element noQuizzesFoundMessage = doc.selectFirst(searchPage.getNoQuizzesFoundMessageCss());
+
+        try {
+            Assertions.assertTrue(isPresent(noQuizzesFoundMessage), "No message is displayed");
+        } catch (AssertionError error) {
+            return;
+        }
+
+        logger.info("Some message is displayed for non-existent SearchValue - correct");
+
+        searchValue = searchValue.trim();
+
+        String actualMessageText = noQuizzesFoundMessage.text();
+        assertAll(
+                () -> Assertions.assertTrue(actualMessageText.contains(ErrorMessage.SEARCH_NO_QUIZZES_FOUND.getMessage()), "Incorrect message text"),
+                () -> Assertions.assertTrue(actualMessageText.contains(searchValue), "Incorrect SearchValue in message text")
+        );
+    }
+
+    private boolean arePresent(Element gameTitle, Element gameDescription) {
+        if (gameTitle == null) {
             logger.info(" <a class='gameName'> is not found");
             return false;
         }
-        if (gameDescriptionLink == null) {
+        if (gameDescription == null) {
             logger.info(" <p class='gameDesc'> is not found");
             return false;
         }
         return true;
     }
 
-    @Step("Check that search result is correct")
-    public void checkSearchResults() {
-        SearchForm searchForm = new SearchForm();
-        String htmlBodyAsString = searchForm.doSearch(searchValue);
-
-        Document doc = Jsoup.parse(htmlBodyAsString);
-        Element gameTitleLink = doc.selectFirst("a.gameName");
-        Element gameDescriptionLink = doc.selectFirst("p.gameDesc");
-
-        boolean found = false;
-
-        Assertions.assertTrue(gameTitleAndDescriptionLinksAreNotNull(gameTitleLink, gameDescriptionLink), "No quizzes are displayed");
-
-        if (searchValue.isEmpty() || searchValue.equals(" ")) {
-            logger.info("Random quizzes are shown for empty SearchValue");
-            return;
-        }
-
-        String[] searchWords = searchValue.trim().toUpperCase().split("\\s+");
-
-        String gameTitleText = gameTitleLink.text().toUpperCase();
-        String gameDescriptionText = gameDescriptionLink.text().toUpperCase();
-
-        for (String word : searchWords) {
-
-            found = false;
-
-            if (gameTitleText.contains(word) || gameDescriptionText.contains(word)) {
-                logger.info("Word '" + word + "' was found");
-                found = true;
-            }
-        }
-
-        Assertions.assertTrue(found, "Nothing found for '" + searchValue + "'");
-    }
-
-    private boolean gameNoQuizzesFoundMessageIsNotNull(Element noQuizzesFoundMessage) {
+    private boolean isPresent(Element noQuizzesFoundMessage) {
         if (noQuizzesFoundMessage == null) {
             logger.info("No <h2> element found within the #content section.");
             return false;
         }
         return true;
-    }
-
-    @Step("Check that 'No quizzes found' message is displayed instead of search result")
-    public void checkNoQuizzesFoundMessage() {
-        SearchForm searchForm = new SearchForm();
-        String htmlBodyAsString = searchForm.doSearch(searchValue);
-
-        Document doc = Jsoup.parse(htmlBodyAsString);
-        Element noQuizzesFoundMessage = doc.selectFirst("#content h2");
-
-        if (gameNoQuizzesFoundMessageIsNotNull(noQuizzesFoundMessage)) {
-            logger.info("Some message is shown instead of quizzes");
-
-            searchValue = searchValue.trim().toUpperCase();
-
-            String noQuizzesFoundMessageText = noQuizzesFoundMessage.text().toUpperCase();
-
-            assertAll(
-                    () -> Assertions.assertTrue(noQuizzesFoundMessageText.contains(ErrorMessage.SEARCH_NO_QUIZZES_FOUND.getMessage().toUpperCase()), "Incorrect message test"),
-                    () -> Assertions.assertTrue(noQuizzesFoundMessageText.contains(searchValue), "Incorrect message test")
-            );
-        }
     }
 }
