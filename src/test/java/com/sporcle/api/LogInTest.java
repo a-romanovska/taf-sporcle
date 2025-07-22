@@ -19,9 +19,7 @@ public class LogInTest extends BaseTest {
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
                 () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_ERROR_TEXT, loginPage.getErrorText()),
                 () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsPasswordMessage())//,
-                //() -> assertEquals("email", loginPage.getErrorsEmailField()),//в проверке есть смысл только для поиск апо индексам
-                //() -> assertEquals("password", loginPage.getErrorsPasswordField())//в проверке есть смысл только для поиск апо индексам
+                () -> assertEquals(LogInForm.INCORRECT_LOGIN_INFORMATION_MESSAGE, loginPage.getErrorsPasswordMessage())
         );
     }
 
@@ -64,29 +62,4 @@ public class LogInTest extends BaseTest {
                 () -> assertEquals(LogInForm.MISSING_PASSWORD_MESSAGE, loginPage.getErrorsPasswordMessage())
         );
     }
-
-    /*@Test
-    public void testLoginWithCorrectFormatEmailAndIncorrectFormatPassword() {
-
-    }
-
-    @Test
-    public void testLoginWithIncorrectFormatEmailAndCorrectFormatPassword() {
-
-    }
-
-    @Test
-    public void testLoginWithIncorrectFormatEmailAndIncorrectFormatPassword() {
-
-    }
-
-    @Test
-    public void testLoginWithIncorrectFormatEmailAndEmptyPassword() {
-
-    }
-
-    @Test
-    public void testLoginWithEmptyEmailAndIncorrectFormatPassword() {
-
-    }*/
 }

@@ -38,7 +38,8 @@ public class LogInForm extends ApiForm {
         return header;
     }
 
-    private Map<String, String> getFormParams() {
+    @Override
+    protected Map<String, String> getFormParams() {
         Properties setProperties = PropertiesUtils.readSetPropertiesFromResource(propertiesFileName, set);
         if (setProperties.isEmpty()) {
             logger.info("No properties were read from file");

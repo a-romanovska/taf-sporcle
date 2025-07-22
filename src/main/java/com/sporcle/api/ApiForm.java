@@ -26,6 +26,8 @@ public abstract class ApiForm {
 
     protected abstract Map<String, String> getContentTypeHeader();
 
+    protected abstract Map<String, String> getFormParams();
+
     protected Map<String, String> getFormParams(Properties properties) {
         Map<String, String> formParams = new HashMap<>();
 
