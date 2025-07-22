@@ -104,7 +104,7 @@ public class SearchTest extends BaseTest {
                 logger.info("Word '" + word + "' was found");
                 wordIsPresentInResult = true;
             }
-            Assertions.assertTrue(wordIsPresentInResult, "Nothing is found for SearchValue");
+            Assertions.assertTrue(wordIsPresentInResult, "Game title and description do not contain " + word);
         }
     }
 
