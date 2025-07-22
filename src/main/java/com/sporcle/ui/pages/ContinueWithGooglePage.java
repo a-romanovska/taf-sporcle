@@ -1,10 +1,10 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Titles;
+import com.sporcle.enums.PageTitle;
+import com.sporcle.ui.finals.Endpoints;
 
 public class ContinueWithGooglePage extends BasePage {
     public ContinueWithGooglePage() {
-        super(Endpoints.PART_OF_CONTINUE_WITH_GOOGLE, Titles.CONTINUE_WITH_GOOGLE);
+        super(Endpoints.PART_OF_CONTINUE_WITH_GOOGLE, PageTitle.CONTINUE_WITH_GOOGLE.getTitle());
     }
 }

@@ -1,7 +1,7 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Titles;
+import com.sporcle.enums.PageTitle;
+import com.sporcle.ui.finals.Endpoints;
 import com.sporcle.ui.forms.HomePageContextBarForm;
 import org.openqa.selenium.By;
 
@@ -9,7 +9,7 @@ public class HomePage extends BasePage {
     protected final By contextBarForm = By.id("context-bar");
 
     public HomePage() {
-        super(Endpoints.HOME, Titles.HOME_PAGE);
+        super(Endpoints.HOME, PageTitle.HOME.getTitle());
     }
 
     //get visible form

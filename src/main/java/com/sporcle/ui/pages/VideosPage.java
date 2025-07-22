@@ -1,10 +1,10 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Titles;
+import com.sporcle.enums.PageTitle;
+import com.sporcle.ui.finals.Endpoints;
 
 public class VideosPage extends BasePage {
     public VideosPage() {
-        super(Endpoints.VIDEOS, Titles.VIDEOS_PAGE);
+        super(Endpoints.VIDEOS, PageTitle.VIDEOS.getTitle());
     }
 }

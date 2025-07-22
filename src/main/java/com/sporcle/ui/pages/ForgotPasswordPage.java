@@ -1,10 +1,10 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Titles;
+import com.sporcle.enums.PageTitle;
+import com.sporcle.ui.finals.Endpoints;
 
 public class ForgotPasswordPage extends BasePage {
     public ForgotPasswordPage() {
-        super(Endpoints.FORGOT_PASSWORD, Titles.FORGOT_PASSWORD);
+        super(Endpoints.FORGOT_PASSWORD, PageTitle.FORGOT_PASSWORD.getTitle());
     }
 }

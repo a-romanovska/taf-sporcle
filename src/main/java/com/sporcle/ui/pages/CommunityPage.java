@@ -1,10 +1,10 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Titles;
+import com.sporcle.enums.PageTitle;
+import com.sporcle.ui.finals.Endpoints;
 
 public class CommunityPage extends BasePage {
     public CommunityPage() {
-        super(Endpoints.COMMUNITY, Titles.COMMUNITY_PAGE);
+        super(Endpoints.COMMUNITY, PageTitle.COMMUNITY.getTitle());
     }
 }

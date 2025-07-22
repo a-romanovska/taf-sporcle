@@ -1,10 +1,10 @@
 package com.sporcle.ui.pages;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Titles;
+import com.sporcle.enums.PageTitle;
+import com.sporcle.ui.finals.Endpoints;
 
 public class RemoveAdsPage extends BasePage{
     public RemoveAdsPage() {
-        super(Endpoints.REMOVE_ADS, Titles.REMOVE_ADS_PAGE);
+        super(Endpoints.REMOVE_ADS, PageTitle.REMOVE_ADS.getTitle());
     }
 }

@@ -1,6 +1,6 @@
 package com.sporcle.enums;
 
-public enum PageTitles {
+public enum PageTitle {
     SEARCH("Sporcle Search for ''"),
     HOME("Sporcle | Play Fun Trivia Quizzes on Every Topic"),
     EVENTS("Free Pub Trivia - Sporcle Events"),
@@ -17,7 +17,7 @@ public enum PageTitles {
 
     private final String title;
 
-    PageTitles(String title) {
+    PageTitle(String title) {
         this.title = title;
     }
 

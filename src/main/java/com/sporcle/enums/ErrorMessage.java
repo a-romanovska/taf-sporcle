@@ -1,6 +1,6 @@
 package com.sporcle.enums;
 
-public enum ErrorMessages {
+public enum ErrorMessage {
     LOGIN_MISSING_EMAIL("Missing email or username"),
     LOGIN_MISSING_PASSWORD("Missing password"),
     LOGIN_MISSING_EMAIL_OR_PASSWORD("Missing email or password"),
@@ -10,7 +10,7 @@ public enum ErrorMessages {
 
     private final String message;
 
-    ErrorMessages(String message) {
+    ErrorMessage(String message) {
         this.message = message;
     }
 

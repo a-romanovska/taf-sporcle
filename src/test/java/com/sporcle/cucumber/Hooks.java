@@ -1,6 +1,6 @@
 package com.sporcle.cucumber;
 
-import com.sporcle.finals.ErrorMessages;
+import com.sporcle.enums.ErrorMessage;
 import com.sporcle.ui.BaseTest;
 import com.sporcle.ui.forms.SearchContentForm;
 import com.sporcle.ui.pages.SearchPage;
@@ -69,7 +69,7 @@ public class Hooks extends BaseTest {
         searchValue = searchValue.trim().toUpperCase();
 
         assertAll(
-                () -> Assertions.assertTrue(actualMessageText.contains(ErrorMessages.SEARCH_NO_QUIZZES_FOUND.toUpperCase()), "Incorrect message test"),
+                () -> Assertions.assertTrue(actualMessageText.contains(ErrorMessage.SEARCH_NO_QUIZZES_FOUND.getMessage().toUpperCase()), "Incorrect message test"),
                 () -> Assertions.assertTrue(actualMessageText.contains(searchValue), "Incorrect message test")
         );
     }

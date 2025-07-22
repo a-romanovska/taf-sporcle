@@ -1,9 +1,9 @@
 package com.sporcle.ui;
 
+import com.sporcle.Constants;
 import com.sporcle.User;
-import com.sporcle.finals.Color;
-import com.sporcle.finals.ErrorMessages;
-import com.sporcle.finals.Finals;
+import com.sporcle.enums.Color;
+import com.sporcle.enums.ErrorMessage;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
@@ -34,8 +34,8 @@ public class FailedLogInTest extends BaseTest {
         logInForm.inputPassword(password);
         logInForm.clickLogInButton();
 
-        checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_INCORRECT_INFORMATION);
-        checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_INCORRECT_INFORMATION);
+        checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_INCORRECT_INFORMATION.getMessage());
+        checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_INCORRECT_INFORMATION.getMessage());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class FailedLogInTest extends BaseTest {
         logInForm.inputEmail(email);
         logInForm.clickLogInButton();
 
-        checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_PASSWORD);
+        checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage());
     }
 
     @Test
@@ -51,21 +51,21 @@ public class FailedLogInTest extends BaseTest {
         logInForm.inputPassword(password);
         logInForm.clickLogInButton();
 
-        checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_EMAIL);
+        checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage());
     }
 
     //не всегда успевает найти сообщение об ошибке
     @Test
     public void testLoginWithEmptyEmailAndEmptyPassword() {
-        logInForm.inputEmail(Finals.EMPTY_STRING);
-        logInForm.inputPassword(Finals.EMPTY_STRING);
+        logInForm.inputEmail(Constants.EMPTY_VALUE);
+        logInForm.inputPassword(Constants.EMPTY_VALUE);
         logInForm.clickLogInButton();
         //добавить ожидание, так как не всегда успевает настроиться цвет/найтись сообщение
         //вроде бы стал работать нормально
         //помогает, но по сути не должно так работать, поэтому подумать над лругим вариантом
 
-        checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_EMAIL);
-        checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessages.LOGIN_MISSING_PASSWORD);
+        checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage());
+        checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage());
     }
 
     private void checkThatInputFieldBehavesLikeErrorWasFound(InputField inputField, Label label, ValidationMessage validationMessage, String errorMessage) {

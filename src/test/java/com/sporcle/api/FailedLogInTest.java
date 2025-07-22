@@ -1,7 +1,7 @@
 package com.sporcle.api;
 
-import com.sporcle.finals.ErrorMessages;
-import com.sporcle.finals.Finals;
+import com.sporcle.Constants;
+import com.sporcle.enums.ErrorMessage;
 import org.junit.jupiter.api.Test;
 
 import java.net.HttpURLConnection;
@@ -23,9 +23,9 @@ public class FailedLogInTest extends BaseTest {
 
         assertAll(
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
-                () -> assertEquals(ErrorMessages.LOGIN_INCORRECT_INFORMATION_GENERAL.getMessage(), loginPage.getErrorText()),
-                () -> assertEquals(ErrorMessages.LOGIN_INCORRECT_INFORMATION.getMessage(), loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(ErrorMessages.LOGIN_INCORRECT_INFORMATION.getMessage(), loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(ErrorMessage.LOGIN_INCORRECT_INFORMATION_GENERAL.getMessage(), loginPage.getErrorText()),
+                () -> assertEquals(ErrorMessage.LOGIN_INCORRECT_INFORMATION.getMessage(), loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(ErrorMessage.LOGIN_INCORRECT_INFORMATION.getMessage(), loginPage.getErrorsPasswordMessage())
         );
     }
 
@@ -36,9 +36,9 @@ public class FailedLogInTest extends BaseTest {
 
         assertAll(
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
-                () -> assertEquals(Finals.EMPTY_STRING, loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_PASSWORD.getMessage(), loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
+                () -> assertEquals(Constants.EMPTY_VALUE, loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage(), loginPage.getErrorsPasswordMessage())
         );
     }
 
@@ -49,9 +49,9 @@ public class FailedLogInTest extends BaseTest {
 
         assertAll(
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_EMAIL.getMessage(), loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(Finals.EMPTY_STRING, loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage(), loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(Constants.EMPTY_VALUE, loginPage.getErrorsPasswordMessage())
         );
     }
 
@@ -62,9 +62,9 @@ public class FailedLogInTest extends BaseTest {
 
         assertAll(
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_EMAIL.getMessage(), loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(ErrorMessages.LOGIN_MISSING_PASSWORD.getMessage(), loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage(), loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage(), loginPage.getErrorsPasswordMessage())
         );
     }
 }

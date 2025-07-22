@@ -1,6 +1,6 @@
 package com.sporcle.api;
 
-import com.sporcle.finals.ErrorMessages;
+import com.sporcle.enums.ErrorMessage;
 import io.qameta.allure.Step;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -127,7 +127,7 @@ public class SearchTest extends BaseTest {
             String noQuizzesFoundMessageText = noQuizzesFoundMessage.text().toUpperCase();
 
             assertAll(
-                    () -> Assertions.assertTrue(noQuizzesFoundMessageText.contains(ErrorMessages.SEARCH_NO_QUIZZES_FOUND.toUpperCase()), "Incorrect message test"),
+                    () -> Assertions.assertTrue(noQuizzesFoundMessageText.contains(ErrorMessage.SEARCH_NO_QUIZZES_FOUND.getMessage().toUpperCase()), "Incorrect message test"),
                     () -> Assertions.assertTrue(noQuizzesFoundMessageText.contains(searchValue), "Incorrect message test")
             );
         }

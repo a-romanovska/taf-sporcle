@@ -1,7 +1,7 @@
 package com.sporcle.api;
 
-import com.sporcle.finals.Endpoints;
-import com.sporcle.finals.Finals;
+import com.sporcle.Constants;
+import com.sporcle.api.finals.Endpoints;
 import com.sporcle.utils.PropertiesUtils;
 import io.restassured.path.json.JsonPath;
 import io.restassured.path.json.exception.JsonPathException;
@@ -16,7 +16,7 @@ public class LogInPage extends BasePage {
     private final String credentialsSet;
 
     public LogInPage(String propertiesFileName, String credentialsSet) {
-        super(Endpoints.API_LOGIN, propertiesFileName);
+        super(Endpoints.LOGIN, propertiesFileName);
         this.credentialsSet = credentialsSet;
     }
 
@@ -68,7 +68,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("field");//не имеет смысла, тк заранее знаем что field==email
         } else {
-            return Finals.EMPTY_STRING;
+            return Constants.EMPTY_VALUE;
         }
     }
 
@@ -77,7 +77,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("message");
         } else {
-            return Finals.EMPTY_STRING;
+            return Constants.EMPTY_VALUE;
         }
     }
 
@@ -86,7 +86,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("field");
         } else {
-            return Finals.EMPTY_STRING;
+            return Constants.EMPTY_VALUE;
         }
     }
 
@@ -95,7 +95,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("message");
         } else {
-            return Finals.EMPTY_STRING;
+            return Constants.EMPTY_VALUE;
         }
     }
 }

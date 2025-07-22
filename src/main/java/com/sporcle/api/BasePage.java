@@ -1,6 +1,6 @@
 package com.sporcle.api;
 
-import com.sporcle.finals.Finals;
+import com.sporcle.Constants;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +30,7 @@ public abstract class BasePage {
     protected Map<String, String> getFormParams(Properties properties) {
         Map<String, String> formParams = new HashMap<>();
 
-        String propertyByKey = Finals.EMPTY_STRING;
+        String propertyByKey = Constants.EMPTY_VALUE;
         for (String key : properties.stringPropertyNames()) {
             propertyByKey = properties.getProperty(key);
             formParams.put(key, propertyByKey);
