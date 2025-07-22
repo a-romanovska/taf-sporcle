@@ -1,4 +1,4 @@
-package com.sporcle.finals;
+package com.sporcle.enums;
 
 import com.sporcle.utils.PropertiesUtils;
 

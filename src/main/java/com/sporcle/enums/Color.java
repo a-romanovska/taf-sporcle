@@ -1,4 +1,4 @@
-package com.sporcle.finals;
+package com.sporcle.enums;
 
 public enum Color {
     RED_ERROR("#BB0000");

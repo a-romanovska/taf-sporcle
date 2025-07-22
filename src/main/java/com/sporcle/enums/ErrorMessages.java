@@ -1,4 +1,4 @@
-package com.sporcle.finals;
+package com.sporcle.enums;
 
 public enum ErrorMessages {
     LOGIN_MISSING_EMAIL("Missing email or username"),
