@@ -8,7 +8,7 @@ import com.sporcle.ui.forms.RegistrationForm;
 import org.openqa.selenium.By;
 
 public abstract class BasePage {
-    protected String URL;
+    protected final String URL;
     protected final String title;
     protected static final By productBar = By.id("product-bar");
     protected final By logInForm = By.id("login-modal");

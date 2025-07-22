@@ -62,7 +62,7 @@ public class BaseTest {
                 "Checking that current page is expected one",
                 () -> {
                     if (expectedPage instanceof ContinueWithGooglePage || expectedPage instanceof ContinueWithApplePage) {
-                        Assertions.assertTrue(getCurrentUrl().contains(expectedUrl), "URL of current page is not expected one");
+                        Assertions.assertTrue(getCurrentUrl().startsWith(expectedUrl), "URL of current page is not expected one");
                     } else {
                         Assertions.assertEquals(expectedUrl, getCurrentUrl(), "URL of current page is not expected one");
                     }

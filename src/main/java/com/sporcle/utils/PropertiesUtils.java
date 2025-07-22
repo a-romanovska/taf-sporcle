@@ -12,6 +12,8 @@ import java.util.Properties;
 public class PropertiesUtils {
     private static final String configFile = "config" + FileExtension.PROPERTIES.getExtension();
     private static final String baseUrlKey = "baseUrl";
+    private static final String accountsGoogleUrlKey = "accountsGoogleUrl";
+    private static final String appleidAppleUrlKey = "appleidAppleUrl";
     private static Logger logger = LogManager.getLogger();
 
     public static Properties readPropertiesFromResource(String resourceFileName) {
@@ -47,5 +49,13 @@ public class PropertiesUtils {
 
     public static String getBaseUrl() {
         return readPropertiesFromResource(configFile).getProperty(baseUrlKey);
+    }
+
+    public static String getContinueWithGoogleUrl() {
+        return readPropertiesFromResource(configFile).getProperty(accountsGoogleUrlKey);
+    }
+
+    public static String getContinueWithAppleUrl() {
+        return readPropertiesFromResource(configFile).getProperty(appleidAppleUrlKey);
     }
 }

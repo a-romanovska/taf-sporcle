@@ -5,6 +5,6 @@ import com.sporcle.ui.Endpoints;
 
 public class ContinueWithGooglePage extends BasePage {
     public ContinueWithGooglePage() {
-        super(Endpoints.PART_OF_CONTINUE_WITH_GOOGLE, PageTitle.CONTINUE_WITH_GOOGLE.getTitle());
+        super(Endpoints.CONTINUE_WITH_GOOGLE, PageTitle.CONTINUE_WITH_GOOGLE.getTitle());
     }
 }

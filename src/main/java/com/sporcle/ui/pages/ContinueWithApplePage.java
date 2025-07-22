@@ -5,6 +5,6 @@ import com.sporcle.ui.Endpoints;
 
 public class ContinueWithApplePage extends BasePage {
     public ContinueWithApplePage() {
-        super(Endpoints.PART_OF_CONTINUE_WITH_APPLE, PageTitle.CONTINUE_WITH_APPLE.getTitle());
+        super(Endpoints.CONTINUE_WITH_APPLE, PageTitle.CONTINUE_WITH_APPLE.getTitle());
     }
 }
