@@ -1,7 +1,9 @@
 package com.sporcle.api;
 
-import com.sporcle.Constants;
+import com.sporcle.api.pages.LogInPage;
 import com.sporcle.enums.ErrorMessage;
+import com.sporcle.enums.FileExtension;
+import com.sporcle.enums.Symbol;
 import org.junit.jupiter.api.Test;
 
 import java.net.HttpURLConnection;
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FailedLogInTest extends BaseTest {
-    private final String credentialsSource = "incorrectCredentials" + ".properties";
+    private final String credentialsSource = "incorrectCredentials" + FileExtension.PROPERTIES.getExtension();
     private final String setWithEmailAndPassword = "set0";
     private final String setWithEmailOnly = "set1";
     private final String setWithPasswordOnly = "set2";
@@ -37,7 +39,7 @@ public class FailedLogInTest extends BaseTest {
         assertAll(
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
                 () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
-                () -> assertEquals(Constants.EMPTY_VALUE, loginPage.getErrorsEmailMessage()),
+                () -> assertEquals(Symbol.EMPTY.getSymbol(), loginPage.getErrorsEmailMessage()),
                 () -> assertEquals(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage(), loginPage.getErrorsPasswordMessage())
         );
     }
@@ -51,7 +53,7 @@ public class FailedLogInTest extends BaseTest {
                 () -> assertEquals(HttpURLConnection.HTTP_OK, loginPage.getStatusCode()),
                 () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL_OR_PASSWORD.getMessage(), loginPage.getErrorText()),
                 () -> assertEquals(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage(), loginPage.getErrorsEmailMessage()),
-                () -> assertEquals(Constants.EMPTY_VALUE, loginPage.getErrorsPasswordMessage())
+                () -> assertEquals(Symbol.EMPTY.getSymbol(), loginPage.getErrorsPasswordMessage())
         );
     }
 

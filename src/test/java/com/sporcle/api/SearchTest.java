@@ -1,7 +1,8 @@
 package com.sporcle.api;
 
-import com.sporcle.Constants;
+import com.sporcle.api.pages.SearchPage;
 import com.sporcle.enums.ErrorMessage;
+import com.sporcle.enums.Symbol;
 import io.qameta.allure.Step;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,9 +19,9 @@ public class SearchTest extends BaseTest {
     private final String oneWord = "apple";
     private final String twoWords = "Word Ladder";
     private final String moreThanTwoWords = "Pic winner 30";
-    private final String emptyWord = Constants.EMPTY_VALUE;
+    private final String emptyWord = Symbol.EMPTY.getSymbol();
     private final String wordWithSpaceBeforeAndAfter = " dog ";
-    private final String spaceWord = Constants.SPACE_VALUE;
+    private final String spaceWord = Symbol.SPACE.getSymbol();
     private final String nonExistentWord = "kdakdksad";
 
     @Override

@@ -1,6 +1,6 @@
-package com.sporcle.api;
+package com.sporcle.api.pages;
 
-import com.sporcle.api.finals.Endpoints;
+import com.sporcle.api.Endpoints;
 
 import static io.restassured.RestAssured.given;
 

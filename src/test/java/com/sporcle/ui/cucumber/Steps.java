@@ -31,7 +31,6 @@ public class Steps extends BaseTest {
         quitDriver();
     }
 
-    //search
     @When("Input {string} into Search bar")
     public void inputSearchValue(String value) {
         searchValue = value;
@@ -98,7 +97,6 @@ public class Steps extends BaseTest {
         );
     }
 
-    //open form
     @Given("Open ProductBar")
     public void openProductBar() {
         productBarForm = baseTest.openProductBarForm();

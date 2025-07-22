@@ -1,6 +1,6 @@
-package com.sporcle.api;
+package com.sporcle.api.pages;
 
-import com.sporcle.Constants;
+import com.sporcle.enums.Symbol;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +30,7 @@ public abstract class BasePage {
     protected Map<String, String> getFormParams(Properties properties) {
         Map<String, String> formParams = new HashMap<>();
 
-        String propertyByKey = Constants.EMPTY_VALUE;
+        String propertyByKey = Symbol.EMPTY.getSymbol();
         for (String key : properties.stringPropertyNames()) {
             propertyByKey = properties.getProperty(key);
             formParams.put(key, propertyByKey);

@@ -1,4 +1,4 @@
-package com.sporcle;
+package com.sporcle.ui;
 
 import com.github.javafaker.Faker;
 
@@ -13,7 +13,7 @@ public class User {
         return email;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         password = faker.internet().password();
         return password;
     }

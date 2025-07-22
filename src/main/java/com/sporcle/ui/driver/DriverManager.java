@@ -1,6 +1,7 @@
 package com.sporcle.ui.driver;
 
-import com.sporcle.Constants;
+import com.sporcle.enums.Symbol;
+import com.sporcle.ui.Timeouts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,7 +46,7 @@ public class DriverManager {
 
     public static String getCurrentUrl() {
         if (driver == null) {
-            return Constants.EMPTY_VALUE;
+            return Symbol.EMPTY.getSymbol();
         } else {
             return driver.getCurrentUrl();
         }
@@ -53,7 +54,7 @@ public class DriverManager {
 
     public static String getCurrentTitle() {
         if (driver == null) {
-            return Constants.EMPTY_VALUE;
+            return Symbol.EMPTY.getSymbol();
         } else {
             return driver.getTitle();
         }
@@ -65,7 +66,7 @@ public class DriverManager {
     }
 
     private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition) {
-        return getOrCheckObjectWhenConditionIsMet(condition, Constants.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
+        return getOrCheckObjectWhenConditionIsMet(condition, Timeouts.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
     }
 
     private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<T> returnClass) {

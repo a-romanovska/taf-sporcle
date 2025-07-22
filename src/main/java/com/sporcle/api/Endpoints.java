@@ -1,4 +1,4 @@
-package com.sporcle.api.finals;
+package com.sporcle.api;
 
 import com.sporcle.utils.PropertiesUtils;
 

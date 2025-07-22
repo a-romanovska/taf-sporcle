@@ -1,7 +1,7 @@
-package com.sporcle.api;
+package com.sporcle.api.pages;
 
-import com.sporcle.Constants;
-import com.sporcle.api.finals.Endpoints;
+import com.sporcle.api.Endpoints;
+import com.sporcle.enums.Symbol;
 import com.sporcle.utils.PropertiesUtils;
 import io.restassured.path.json.JsonPath;
 import io.restassured.path.json.exception.JsonPathException;
@@ -34,7 +34,7 @@ public class LogInPage extends BasePage {
 
     @Override
     protected Map<String, String> getFormParams() {
-        Properties setProperties = PropertiesUtils.readSetPropertiesFromResource(propertiesFileName, credentialsSet);
+        Properties setProperties = PropertiesUtils.readSetFromCredentialsProperties(propertiesFileName, credentialsSet);
         if (setProperties.isEmpty()) {
             logger.info("No properties were read from file");
         }
@@ -68,7 +68,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("field");//не имеет смысла, тк заранее знаем что field==email
         } else {
-            return Constants.EMPTY_VALUE;
+            return Symbol.EMPTY.getSymbol();
         }
     }
 
@@ -77,7 +77,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("message");
         } else {
-            return Constants.EMPTY_VALUE;
+            return Symbol.EMPTY.getSymbol();
         }
     }
 
@@ -86,7 +86,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("field");
         } else {
-            return Constants.EMPTY_VALUE;
+            return Symbol.EMPTY.getSymbol();
         }
     }
 
@@ -95,7 +95,7 @@ public class LogInPage extends BasePage {
         if (object != null) {
             return object.get("message");
         } else {
-            return Constants.EMPTY_VALUE;
+            return Symbol.EMPTY.getSymbol();
         }
     }
 }

@@ -1,9 +1,8 @@
 package com.sporcle.ui;
 
-import com.sporcle.Constants;
-import com.sporcle.User;
 import com.sporcle.enums.Color;
 import com.sporcle.enums.ErrorMessage;
+import com.sporcle.enums.Symbol;
 import com.sporcle.ui.elements.InputField;
 import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
@@ -57,8 +56,8 @@ public class FailedLogInTest extends BaseTest {
     //не всегда успевает найти сообщение об ошибке
     @Test
     public void testLoginWithEmptyEmailAndEmptyPassword() {
-        logInForm.inputEmail(Constants.EMPTY_VALUE);
-        logInForm.inputPassword(Constants.EMPTY_VALUE);
+        logInForm.inputEmail(Symbol.EMPTY.getSymbol());
+        logInForm.inputPassword(Symbol.EMPTY.getSymbol());
         logInForm.clickLogInButton();
         //добавить ожидание, так как не всегда успевает настроиться цвет/найтись сообщение
         //вроде бы стал работать нормально

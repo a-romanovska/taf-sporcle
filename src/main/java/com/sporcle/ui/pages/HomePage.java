@@ -1,7 +1,7 @@
 package com.sporcle.ui.pages;
 
 import com.sporcle.enums.PageTitle;
-import com.sporcle.ui.finals.Endpoints;
+import com.sporcle.ui.Endpoints;
 import com.sporcle.ui.forms.HomePageContextBarForm;
 import org.openqa.selenium.By;
 
