@@ -76,20 +76,25 @@ public class SearchTest extends BaseTest {
 
         boolean found = false;
 
-        if (gameTitleAndDescriptionLinksAreNotNull(gameTitleLink, gameDescriptionLink)) {
-            String[] searchWords = searchValue.trim().toUpperCase().split("\\s+");
+        Assertions.assertTrue(gameTitleAndDescriptionLinksAreNotNull(gameTitleLink, gameDescriptionLink), "No quizzes are displayed");
 
-            String gameTitleText = gameTitleLink.text().toUpperCase();
-            String gameDescriptionText = gameDescriptionLink.text().toUpperCase();
+        if (searchValue.isEmpty() || searchValue.equals(" ")) {
+            logger.info("Random quizzes are shown for empty SearchValue");
+            return;
+        }
 
-            for (String word : searchWords) {
+        String[] searchWords = searchValue.trim().toUpperCase().split("\\s+");
 
-                found = false;
+        String gameTitleText = gameTitleLink.text().toUpperCase();
+        String gameDescriptionText = gameDescriptionLink.text().toUpperCase();
 
-                if (gameTitleText.contains(word) || gameDescriptionText.contains(word)) {
-                    logger.info("Word '" + word + "' was found");
-                    found = true;
-                }
+        for (String word : searchWords) {
+
+            found = false;
+
+            if (gameTitleText.contains(word) || gameDescriptionText.contains(word)) {
+                logger.info("Word '" + word + "' was found");
+                found = true;
             }
         }
 
@@ -112,6 +117,8 @@ public class SearchTest extends BaseTest {
         Element noQuizzesFoundMessage = doc.selectFirst("#content h2");
 
         if (gameNoQuizzesFoundMessageIsNotNull(noQuizzesFoundMessage)) {
+            logger.info("Some message is shown instead of quizzes");
+
             searchValue = searchValue.trim().toUpperCase();
 
             String noQuizzesFoundMessageText = noQuizzesFoundMessage.text().toUpperCase();
