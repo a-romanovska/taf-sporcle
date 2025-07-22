@@ -1,6 +1,7 @@
 package com.sporcle.api;
 
 import com.sporcle.finals.ErrorMessages;
+import io.qameta.allure.Step;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -66,6 +67,7 @@ public class SearchTest extends BaseTest {
         return true;
     }
 
+    @Step("Check that search result is correct")
     public void checkSearchResults() {
         SearchForm searchForm = new SearchForm();
         String htmlBodyAsString = searchForm.doSearch(searchValue);
@@ -109,6 +111,7 @@ public class SearchTest extends BaseTest {
         return true;
     }
 
+    @Step("Check that 'No quizzes found' message is displayed instead of search result")
     public void checkNoQuizzesFoundMessage() {
         SearchForm searchForm = new SearchForm();
         String htmlBodyAsString = searchForm.doSearch(searchValue);

@@ -1,5 +1,6 @@
 package com.sporcle.api;
 
+import com.sporcle.finals.Endpoints;
 import com.sporcle.finals.Finals;
 import com.sporcle.utils.PropertiesUtils;
 import io.restassured.path.json.JsonPath;
@@ -11,24 +12,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class LogInForm extends ApiForm {
-    private static final String URL_LOGIN = URL_BASE + "/auth/ajax/login.php";
-    private final String set;
+public class LogInPage extends BasePage {
+    private final String credentialsSet;
 
-    public static final String INCORRECT_LOGIN_INFORMATION_ERROR_TEXT = "Incorrect login information.";
-    public static final String MISSING_EMAIL_OR_PASSWORD_ERROR_TEXT = "Missing email or password";
-    public static final String INCORRECT_LOGIN_INFORMATION_MESSAGE = "Incorrect login information";
-    public static final String MISSING_EMAIL_MESSAGE = "Missing email or username";
-    public static final String MISSING_PASSWORD_MESSAGE = "Missing password";
-
-    public LogInForm(String propertiesFileName, String set) {
-        super(propertiesFileName);
-        this.set = set;
+    public LogInPage(String propertiesFileName, String credentialsSet) {
+        super(Endpoints.API_LOGIN, propertiesFileName);
+        this.credentialsSet = credentialsSet;
     }
 
     @Override
     protected Response getResponse() {
-        return getResponse(URL_LOGIN, getContentTypeHeader(), getFormParams());
+        return getResponse(URL, getContentTypeHeader(), getFormParams());
     }
 
     @Override
@@ -40,7 +34,7 @@ public class LogInForm extends ApiForm {
 
     @Override
     protected Map<String, String> getFormParams() {
-        Properties setProperties = PropertiesUtils.readSetPropertiesFromResource(propertiesFileName, set);
+        Properties setProperties = PropertiesUtils.readSetPropertiesFromResource(propertiesFileName, credentialsSet);
         if (setProperties.isEmpty()) {
             logger.info("No properties were read from file");
         }

@@ -11,15 +11,14 @@ import java.util.Properties;
 
 import static io.restassured.RestAssured.given;
 
-public abstract class ApiForm {
-    protected static final String URL_BASE = "https://www.sporcle.com";
-    protected final String propertiesFileName;
-    private static final String extension = ".properties";
+public abstract class BasePage {
+    protected String URL;
+    protected String propertiesFileName;
+    protected Logger logger = LogManager.getLogger();
 
-    protected static final Logger logger = LogManager.getLogger();
-
-    protected ApiForm(String propertiesFileNameWithoutExtension) {
-        this.propertiesFileName = propertiesFileNameWithoutExtension + extension;
+    protected BasePage(String endpoint, String propertiesFileName) {
+        this.URL = endpoint;
+        this.propertiesFileName = propertiesFileName;
     }
 
     protected abstract Response getResponse();
