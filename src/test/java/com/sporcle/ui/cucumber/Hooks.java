@@ -1,4 +1,4 @@
-package com.sporcle.cucumber;
+package com.sporcle.ui.cucumber;
 
 import com.sporcle.enums.ErrorMessage;
 import com.sporcle.ui.BaseTest;

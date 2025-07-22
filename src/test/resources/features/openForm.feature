@@ -1,6 +1,6 @@
 Feature: Test open form
 
-  Scenario: Open Log In form
+  Scenario: Open LogIn form
     Given Open ProductBar form
     When Click [Sign In] on ProductBar
     Then Check that [Log In] form is opened
