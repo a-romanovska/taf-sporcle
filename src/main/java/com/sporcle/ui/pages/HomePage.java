@@ -12,7 +12,6 @@ public class HomePage extends BasePage {
         super(Endpoints.HOME, PageTitle.HOME.getTitle());
     }
 
-    //get visible form
     public HomePageContextBarForm getContextBarFormWhenVisible() {
         return (HomePageContextBarForm) getFormWhenVisible(contextBarForm, HomePageContextBarForm.class);
     }

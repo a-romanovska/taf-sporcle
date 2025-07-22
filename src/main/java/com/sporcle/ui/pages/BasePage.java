@@ -68,7 +68,6 @@ public abstract class BasePage {
         DriverManager.switchToOriginalWindow();
     }
 
-    //get visible form
     public LogInForm getLogInFormWhenVisible() {
         return (LogInForm) getFormWhenVisible(logInForm, LogInForm.class);
     }
@@ -77,7 +76,6 @@ public abstract class BasePage {
         return (RegistrationForm) getFormWhenVisible(registrationForm, RegistrationForm.class);
     }
 
-    //check if visible
     public boolean logInFormIsVisible() {
         return checkVisibilityState(logInForm, true);
     }
@@ -90,7 +88,6 @@ public abstract class BasePage {
         return checkVisibilityState(settingsForm, true);
     }
 
-    //check if invisible
     public boolean logInFormIsInvisible() {
         return checkVisibilityState(logInForm, false);
     }
