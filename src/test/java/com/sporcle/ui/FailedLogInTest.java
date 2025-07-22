@@ -28,7 +28,7 @@ public class FailedLogInTest extends BaseTest {
     }
 
     @Test
-    public void testLoginWithCorrectFormatEmailAndCorrectFormatPassword() {
+    public void testLoginWithIncorrectEmailAndIncorrectPassword() {
         logInForm.inputEmail(email);
         logInForm.inputPassword(password);
         logInForm.clickLogInButton();
@@ -38,70 +38,67 @@ public class FailedLogInTest extends BaseTest {
     }
 
     @Test
-    public void testLoginWithCorrectFormatEmailAndEmptyPassword() {
+    public void testLoginWithIncorrectEmailAndEmptyPassword() {
         logInForm.inputEmail(email);
+        logInForm.inputPassword(Symbol.EMPTY.getSymbol());
         logInForm.clickLogInButton();
 
         checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage());
     }
 
     @Test
-    public void testLoginWithEmptyEmailAndCorrectFormatPassword() {
+    public void testLoginWithEmptyEmailAndIncorrectPassword() {
+        logInForm.inputEmail(Symbol.EMPTY.getSymbol());
         logInForm.inputPassword(password);
         logInForm.clickLogInButton();
 
         checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage());
     }
 
-    //не всегда успевает найти сообщение об ошибке
     @Test
     public void testLoginWithEmptyEmailAndEmptyPassword() {
         logInForm.inputEmail(Symbol.EMPTY.getSymbol());
         logInForm.inputPassword(Symbol.EMPTY.getSymbol());
         logInForm.clickLogInButton();
-        //добавить ожидание, так как не всегда успевает настроиться цвет/найтись сообщение
-        //вроде бы стал работать нормально
-        //помогает, но по сути не должно так работать, поэтому подумать над лругим вариантом
 
         checkThatEmailInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_EMAIL.getMessage());
         checkThatPasswordInputFieldBehavesLikeErrorWasFound(ErrorMessage.LOGIN_MISSING_PASSWORD.getMessage());
     }
 
-    private void checkThatInputFieldBehavesLikeErrorWasFound(InputField inputField, Label label, ValidationMessage validationMessage, String errorMessage) {
-        String validationMessageText = validationMessage.getText();
-        String labelCurrentColor = label.getCssValueColor();
-        String inputFieldCurrentBorderBottomColor = inputField.getCssValueBorderBottomColor();
-        String validationMessageColor = validationMessage.getCssValueColor();
-
-        String errorColorAsHex = Color.RED_ERROR.getHexCode();
-        String labelCurrentColorAsHex = ColorConverterUtils.rgbaToHex(labelCurrentColor);
-        String inputFieldCurrentBorderBottomColorAsHex = ColorConverterUtils.rgbaToHex(inputFieldCurrentBorderBottomColor);
-        String validationMessageColorAsHex = ColorConverterUtils.rgbaToHex(validationMessageColor);
-
-        assertAll(
-                "Checking that InputField behaves like error was found in it",
-                () -> Assertions.assertEquals(errorMessage, validationMessageText, "ValidationMessage text is incorrect"),
-                () -> Assertions.assertTrue(labelCurrentColorAsHex.contains(errorColorAsHex), "Label color is not Colors.ERROR"),
-                () -> Assertions.assertTrue(inputFieldCurrentBorderBottomColorAsHex.contains(errorColorAsHex), "InputField border bottom color is not Colors.ERROR"),
-                () -> Assertions.assertTrue(validationMessageColorAsHex.contains(errorColorAsHex), "ValidationMessage color is not Colors.ERROR")
-        );
-    }
-
-    @Step("Check that [Email] field turns red AND corresponding error message appears")
-    public void checkThatEmailInputFieldBehavesLikeErrorWasFound(String errorMessage) {
-        InputField inputField = logInForm.getEmailInputFieldWhenVisible();
+    @Step("Check that [Email] field turns red + corresponding error message appears")
+    private void checkThatEmailInputFieldBehavesLikeErrorWasFound(String expectedMessage) {
         Label label = logInForm.getEmailLabelWhenVisible();
+        InputField inputField = logInForm.getEmailInputFieldWhenVisible();
         ValidationMessage validationMessage = logInForm.getEmailValidationMessageWhenVisible();
 
-        checkThatInputFieldBehavesLikeErrorWasFound(inputField, label, validationMessage, errorMessage);
+        checkThatInputFieldBehavesLikeErrorWasFound(label, inputField, validationMessage, expectedMessage);
     }
 
-    @Step("Check that [Password] field turns red AND corresponding error message appears")
-    public void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String errorMessage) {
-        InputField inputField = logInForm.getPasswordInputFieldWhenVisible();
+    @Step("Check that [Password] field turns red + corresponding error message appears")
+    private void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String expectedMessage) {
         Label label = logInForm.getPasswordLabelWhenVisible();
+        InputField inputField = logInForm.getPasswordInputFieldWhenVisible();
         ValidationMessage validationMessage = logInForm.getPasswordValidationMessageWhenVisible();
 
-        checkThatInputFieldBehavesLikeErrorWasFound(inputField, label, validationMessage, errorMessage);
+        checkThatInputFieldBehavesLikeErrorWasFound(label, inputField, validationMessage, expectedMessage);
+    }
+
+    private void checkThatInputFieldBehavesLikeErrorWasFound(Label label, InputField inputField, ValidationMessage validationMessage, String expectedMessage) {
+        String labelCurrentColorAsRgba = label.getCssValueColor();
+        String inputFieldCurrentBorderBottomColorAsRgba = inputField.getCssValueBorderBottomColor();
+        String validationMessageColorAsRgba = validationMessage.getCssValueColor();
+        String actualMessage = validationMessage.getText();
+
+        String expectedColor = Color.RED_ERROR.getHexCode();
+        String labelCurrentColor = ColorConverterUtils.rgbaToHex(labelCurrentColorAsRgba);
+        String inputFieldCurrentBorderBottomColor = ColorConverterUtils.rgbaToHex(inputFieldCurrentBorderBottomColorAsRgba);
+        String validationMessageColor = ColorConverterUtils.rgbaToHex(validationMessageColorAsRgba);
+
+        assertAll(
+                "Checking that InputField behaves like error was found",
+                () -> Assertions.assertTrue(labelCurrentColor.startsWith(expectedColor), "Label color is not " + expectedColor),
+                () -> Assertions.assertTrue(inputFieldCurrentBorderBottomColor.startsWith(expectedColor), "InputField border bottom color is not " + expectedColor),
+                () -> Assertions.assertTrue(validationMessageColor.startsWith(expectedColor), "ValidationMessage color is not " + expectedColor),
+                () -> Assertions.assertEquals(expectedMessage, actualMessage, "ValidationMessage text is incorrect"));
     }
 }

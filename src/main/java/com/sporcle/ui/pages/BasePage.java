@@ -4,13 +4,12 @@ import com.sporcle.ui.driver.DriverManager;
 import com.sporcle.ui.forms.BaseForm;
 import com.sporcle.ui.forms.LogInForm;
 import com.sporcle.ui.forms.ProductBarForm;
-import com.sporcle.ui.forms.RegistrationForm;
 import org.openqa.selenium.By;
 
 public abstract class BasePage {
     protected final String URL;
     protected final String title;
-    protected static final By productBar = By.id("product-bar");
+    protected static By productBar = By.id("product-bar");
     protected final By logInForm = By.id("login-modal");
     protected final By registrationForm = By.id("registration-modal");
     protected final By settingsForm = By.id("user-dropdown");
@@ -44,19 +43,7 @@ public abstract class BasePage {
         return DriverManager.getCurrentTitle();
     }
 
-    protected BaseForm getFormWhenVisible(By locator, Class<? extends BaseForm> returnFormClass) {
-        return DriverManager.getObjectWhenVisible(locator, returnFormClass);
-    }
-
-    protected boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
-        return DriverManager.waitForVisibilityState(locator, shouldBeVisible);
-    }
-
-    public ProductBarForm getProductBarFormWhenVisible() {
-        return (ProductBarForm) getFormWhenVisible(productBar, ProductBarForm.class);
-    }
-
-    public static void switchToNextWindow() {
+    public static void switchToAnotherWindow() {
         DriverManager.switchToNextWindow();
     }
 
@@ -68,12 +55,8 @@ public abstract class BasePage {
         DriverManager.switchToOriginalWindow();
     }
 
-    public LogInForm getLogInFormWhenVisible() {
-        return (LogInForm) getFormWhenVisible(logInForm, LogInForm.class);
-    }
-
-    public RegistrationForm getRegistrationFormWhenVisible() {
-        return (RegistrationForm) getFormWhenVisible(registrationForm, RegistrationForm.class);
+    protected boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
+        return DriverManager.waitForVisibilityState(locator, shouldBeVisible);
     }
 
     public boolean logInFormIsVisible() {
@@ -88,15 +71,15 @@ public abstract class BasePage {
         return checkVisibilityState(settingsForm, true);
     }
 
-    public boolean logInFormIsInvisible() {
-        return checkVisibilityState(logInForm, false);
+    protected BaseForm getFormWhenVisible(By locator, Class<? extends BaseForm> returnFormClass) {
+        return DriverManager.getObjectWhenVisible(locator, returnFormClass);
     }
 
-    public boolean registrationFormIsInvisible() {
-        return checkVisibilityState(registrationForm, false);
+    public ProductBarForm getProductBarFormWhenVisible() {
+        return (ProductBarForm) getFormWhenVisible(productBar, ProductBarForm.class);
     }
 
-    public boolean settingsFormIsInvisible() {
-        return checkVisibilityState(settingsForm, false);
+    public LogInForm getLogInFormWhenVisible() {
+        return (LogInForm) getFormWhenVisible(logInForm, LogInForm.class);
     }
 }

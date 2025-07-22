@@ -1,7 +1,6 @@
 package com.sporcle.ui;
 
 import com.sporcle.ui.pages.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,19 +13,19 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testCloseLogInFormViaCloseButton() {
         logInForm.clickCloseButton();
-        Assertions.assertTrue(homePage.logInFormIsVisible(),"Log In form is not visible");
+        checkThatLogInFormIsVisible();
     }
 
     @Test
     public void testContinueWithGoogleWindowOpen() {
         logInForm.clickContinueWithGoogleButton();
-        checkThatNewWindowIsOpened(new ContinueWithGooglePage());
+        checkThatAnotherWindowIsOpened(new ContinueWithGooglePage());
     }
 
     @Test
     public void testContinueWithAppleWindowOpen() {
         logInForm.clickContinueWithAppleButton();
-        checkThatNewWindowIsOpened(new ContinueWithApplePage());
+        checkThatAnotherWindowIsOpened(new ContinueWithApplePage());
     }
 
     @Test
@@ -38,7 +37,7 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testRegistrationFormOpen() {
         logInForm.clickJoinSporcleForFreeButton();
-        Assertions.assertTrue(homePage.registrationFormIsVisible(),"Registration form is not visible");
+        checkThatRegistrationFormIsVisible();
     }
 
     @Test

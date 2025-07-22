@@ -41,16 +41,58 @@ public class BaseTest {
         return BasePage.getCurrentTitle();
     }
 
-    protected void switchToNextWindow() {
-        BasePage.switchToNextWindow();
+    protected void switchToAnotherWindow() {
+        BasePage.switchToAnotherWindow();
     }
 
-    protected void closeCurrentWindow() {
-        BasePage.closeCurrentWindow();
+    @Step("Open [Home] page")
+    public HomePage openHomePage() {
+        homePage = new HomePage();
+        homePage.open();
+        return homePage;
     }
 
-    protected void switchToOriginalWindow() {
-        BasePage.switchToOriginalWindow();
+    @Step("Open [Context bar] form")
+    public HomePageContextBarForm openContextBarForm() {
+        openHomePage();
+        homePageContextBarForm = homePage.getContextBarFormWhenVisible();
+        return homePageContextBarForm;
+    }
+
+    @Step("Open [Product bar] form")
+    public ProductBarForm openProductBarForm() {
+        openHomePage();
+        productBarForm = homePage.getProductBarFormWhenVisible();
+        return productBarForm;
+    }
+
+    @Step("Open [Log In] form")
+    public LogInForm openLogInForm() {
+        openProductBarForm();
+        productBarForm.clickLogInButton();
+        logInForm = homePage.getLogInFormWhenVisible();
+        return logInForm;
+    }
+
+    @Step("Check that [Log In] form is opened")
+    public void checkThatLogInFormIsVisible() {
+        Assertions.assertTrue(homePage.logInFormIsVisible(), "[Log In] form is not opened");
+    }
+
+    @Step("Check that [Join for Free] form is opened")
+    public void checkThatRegistrationFormIsVisible() {
+        Assertions.assertTrue(homePage.registrationFormIsVisible(), "[Join for Free] form is not opened");
+    }
+
+    @Step("Check that [Settings] form is opened")
+    public void checkThatSettingsFormIsVisible() {
+        Assertions.assertTrue(homePage.settingsFormIsVisible(), "[Settings] form is not opened");
+    }
+
+    @Step("Check that another window is opened")
+    protected void checkThatAnotherWindowIsOpened(BasePage basePage) {
+        switchToAnotherWindow();
+        checkThatCurrentPageIsExpectedOne(basePage);
     }
 
     @Step("Check that expected page is opened")
@@ -69,53 +111,5 @@ public class BaseTest {
                 },
                 () -> Assertions.assertEquals(expectedTitle, getCurrentTitle(), "Title of current page is not expected one")
         );
-    }
-
-    //open page
-    @Step("Open [Home] page")
-    public HomePage openHomePage() {
-        homePage = new HomePage();
-        homePage.open();
-        return homePage;
-    }
-
-    //open form
-    @Step("Open [Product bar] form")
-    public ProductBarForm openProductBarForm() {
-        openHomePage();
-        productBarForm = homePage.getProductBarFormWhenVisible();
-        return productBarForm;
-    }
-
-    @Step("Open [Log In] form")
-    public LogInForm openLogInForm() {
-        openProductBarForm();
-        productBarForm.clickLogInButton();
-        logInForm = homePage.getLogInFormWhenVisible();
-        return logInForm;
-    }
-
-    @Step("Open [Context bar] form")
-    public HomePageContextBarForm openContextBarForm() {
-        openHomePage();
-        homePageContextBarForm = homePage.getContextBarFormWhenVisible();
-        return homePageContextBarForm;
-    }
-
-    //check open
-    @Step("Check that [Log In] form is opened")
-    public void checkThatLogInFormIsVisible() {
-        Assertions.assertTrue(homePage.logInFormIsVisible(), "[Log In] form is not opened");
-    }
-
-    @Step("Check that [Settings] form is opened")
-    public void checkThatSettingsFormIsVisible() {
-        Assertions.assertTrue(homePage.settingsFormIsVisible(), "[Settings] form is not opened");
-    }
-
-    @Step("Check that new window is opened")
-    protected void checkThatNewWindowIsOpened(BasePage basePage) {
-        switchToNextWindow();
-        checkThatCurrentPageIsExpectedOne(basePage);
     }
 }
