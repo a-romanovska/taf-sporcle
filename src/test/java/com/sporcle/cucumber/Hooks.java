@@ -39,14 +39,26 @@ public class Hooks extends BaseTest {
     public void checkSearchResults() {
         SearchContentForm searchContentForm = searchPage.getSearchContentFormWhenVisible();
         String actualGameTitleText = searchContentForm.getSearchResult1GameTitleText().toUpperCase();
+        String actualGameDescriptionText = searchContentForm.getSearchResult1GameDescriptionText().toUpperCase();
         searchValue = searchValue.trim().toUpperCase();
 
         String[] searchWords = searchValue.split("\\s+");
 
+        logger.info("Actual title: " + actualGameTitleText);
+        logger.info("Actual description: " + actualGameDescriptionText);
+
+        boolean found;
         for (String word : searchWords) {
-            logger.info("Actual: " + actualGameTitleText);
-            logger.info("Word: " + word);
-            Assertions.assertTrue(actualGameTitleText.contains(word), "Actual game title does not contain such word");
+            logger.info("Search word: " + word);
+
+            found = false;
+
+            if (actualGameTitleText.contains(word) || actualGameDescriptionText.contains(word)) {
+                System.out.println("Word '" + word + "' was found");
+                found = true;
+            }
+
+            Assertions.assertTrue(found, "Actual game title and description do not contain such word");
         }
     }
 

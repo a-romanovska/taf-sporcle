@@ -5,7 +5,7 @@ Feature: Test search
     Then Check search results
 
   Scenario: Search two words with space
-    When Input "Word Ladder" into Search bar
+    When Input "winter winner" into Search bar
     Then Check search results
 
   Scenario: Search more than two words

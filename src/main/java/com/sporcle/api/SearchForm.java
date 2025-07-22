@@ -1,13 +1,9 @@
 package com.sporcle.api;
 
-import io.restassured.response.Response;
+import static io.restassured.RestAssured.given;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-
-public class SearchForm extends ApiForm {
-    private static final String URL_SEARCH = URL_BASE + "/search/quizzes/?s=Banana";
+public class SearchForm {
+    /*private static final String URL_SEARCH = URL_BASE + "/search/quizzes/?s=Banana";
 
     public SearchForm(String propertiesFileName) {
         super(propertiesFileName);
@@ -28,5 +24,16 @@ public class SearchForm extends ApiForm {
     protected Map<String, String> getFormParams() {
         Properties properties = new Properties();
         return super.getFormParams(properties);
+    }*/
+
+    public String doSearch(String query) {
+        return given()
+                .queryParam("s", query)
+                .queryParam("p", "1")
+                .when().get("https://www.sporcle.com/search/")
+                .then()
+                .statusCode(200)
+                .extract().response()
+                .getBody().asString();
     }
 }
