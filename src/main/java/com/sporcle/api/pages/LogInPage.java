@@ -14,6 +14,14 @@ import java.util.Properties;
 
 public class LogInPage extends BasePage {
     private final String credentialsSet;
+    private final String contentTypeKey = "content-type";
+    private final String contentTypeValue = "application/x-www-form-urlencoded; charset=UTF-8";
+    private final String errorsArrayPath = "errors";
+    private final String fieldKey = "field";
+    private final String emailValue = "email";
+    private final String passwordValue = "password";
+    private final String messageKey = "message";
+    private final String errorTextPath = "error_text";
 
     public LogInPage(String propertiesFileName, String credentialsSet) {
         super(Endpoints.LOGIN, propertiesFileName);
@@ -28,7 +36,7 @@ public class LogInPage extends BasePage {
     @Override
     protected Map<String, String> getContentTypeHeader() {
         Map<String, String> header = new HashMap<>();
-        header.put("content-type", "application/x-www-form-urlencoded; charset=UTF-8");
+        header.put(contentTypeKey, contentTypeValue);
         return header;
     }
 
@@ -42,60 +50,42 @@ public class LogInPage extends BasePage {
     }
 
     public String getErrorText() {
-        return getResponse().path("error_text");
+        return getResponse().path(errorTextPath);
     }
 
-    //п если ошибка будет только для одно параметра? пароля или пояты? как найти по индексу
-    public Map<String, String> getErrorObjectByFieldValue(String targetFieldValue) {
-        JsonPath jsonPath = new JsonPath(getResponse().asString());
+    public String getErrorMessageForEmail() {
+        return getErrorMessageFor(emailValue);
+    }
 
+    public String getErrorMessageForPassword() {
+        return getErrorMessageFor(passwordValue);
+    }
+
+    private String getErrorMessageFor(String fieldValue) {
+        Map<String, String> errorElement = getErrorElementByFieldValue(fieldValue);
+        if (errorElement != null) {
+            return errorElement.get(messageKey);
+        } else {
+            return Symbol.EMPTY.getSymbol();
+        }
+    }
+
+    public Map<String, String> getErrorElementByFieldValue(String targetFieldValue) {
+        JsonPath responseJsonPath = new JsonPath(getResponse().asString());
+
+        String currentFieldValue;
         try {
-            List<Map<String, String>> errors = jsonPath.getList("errors");
-
+            List<Map<String, String>> errors = responseJsonPath.getList(errorsArrayPath);
             for (Map<String, String> error : errors) {
-                if (targetFieldValue.equals(String.valueOf(error.get("field")))) {
+                currentFieldValue = String.valueOf(error.get(fieldKey));
+                if (currentFieldValue.equals(targetFieldValue)) {
                     return error;
                 }
             }
         } catch (JsonPathException jsonPathException) {
             return null;
         }
+        logger.info("No such targetFieldValue was found");
         return null;
-    }
-
-    public String getErrorsEmailField() {
-        Map<String, String> object = getErrorObjectByFieldValue("email");
-        if (object != null) {
-            return object.get("field");//не имеет смысла, тк заранее знаем что field==email
-        } else {
-            return Symbol.EMPTY.getSymbol();
-        }
-    }
-
-    public String getErrorsEmailMessage() {
-        Map<String, String> object = getErrorObjectByFieldValue("email");
-        if (object != null) {
-            return object.get("message");
-        } else {
-            return Symbol.EMPTY.getSymbol();
-        }
-    }
-
-    public String getErrorsPasswordField() {
-        Map<String, String> object = getErrorObjectByFieldValue("password");
-        if (object != null) {
-            return object.get("field");
-        } else {
-            return Symbol.EMPTY.getSymbol();
-        }
-    }
-
-    public String getErrorsPasswordMessage() {
-        Map<String, String> object = getErrorObjectByFieldValue("password");
-        if (object != null) {
-            return object.get("message");
-        } else {
-            return Symbol.EMPTY.getSymbol();
-        }
     }
 }
