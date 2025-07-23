@@ -2,12 +2,17 @@ package com.sporcle.api.pages;
 
 import com.sporcle.api.Endpoints;
 
+import java.net.HttpURLConnection;
+
 import static io.restassured.RestAssured.given;
 
 public class SearchPage {
     private final String gameTitleCss = "a.gameName";
     private final String gameDescriptionCss = "p.gameDesc";
     private final String noQuizzesFoundMessageCss = "#content h2";
+    private final String search = "s";
+    private final String page = "p";
+    private final String pageNumber = "1";
 
     public String getGameTitleCss() {
         return gameTitleCss;
@@ -23,11 +28,12 @@ public class SearchPage {
 
     public String doSearch(String query) {
         return given()
-                .queryParam("s", query)
-                .queryParam("p", "1")
-                .when().get(Endpoints.SEARCH)
+                .queryParam(search, query)
+                .queryParam(page, pageNumber)
+                .when()
+                .get(Endpoints.SEARCH)
                 .then()
-                .statusCode(200)
+                .statusCode(HttpURLConnection.HTTP_OK)
                 .extract().response()
                 .getBody().asString();
     }

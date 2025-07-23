@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import static io.restassured.RestAssured.given;
+
 public class LogInPage extends BasePage {
     private final String credentialsSet;
     private final String contentTypeKey = "content-type";
@@ -30,7 +32,15 @@ public class LogInPage extends BasePage {
 
     @Override
     protected Response getResponse() {
-        return getResponse(URL, getContentTypeHeader(), getFormParams());
+        return getPostResponse(URL, getContentTypeHeader(), getFormParams());
+    }
+
+    private Response getPostResponse(String endpoint, Map<String, String> headers, Map<String, String> formParams) {
+        return given()
+                .headers(headers)
+                .formParams(formParams)
+                .when()
+                .post(endpoint);
     }
 
     @Override
@@ -42,11 +52,17 @@ public class LogInPage extends BasePage {
 
     @Override
     protected Map<String, String> getFormParams() {
-        Properties setProperties = PropertiesUtils.readSetFromCredentialsProperties(propertiesFileName, credentialsSet);
-        if (setProperties.isEmpty()) {
-            logger.info("No properties were read from file");
+        Properties setProperties = PropertiesUtils.readSetFromCredentialsProperties(usedPropertiesFileName, credentialsSet);
+
+        Map<String, String> formParams = new HashMap<>();
+
+        String propertyByKey;
+        for (String key : setProperties.stringPropertyNames()) {
+            propertyByKey = setProperties.getProperty(key);
+            formParams.put(key, propertyByKey);
+            logger.info("{}: {}", key, propertyByKey);
         }
-        return super.getFormParams(setProperties);
+        return formParams;
     }
 
     public String getErrorText() {
@@ -70,7 +86,7 @@ public class LogInPage extends BasePage {
         }
     }
 
-    public Map<String, String> getErrorElementByFieldValue(String targetFieldValue) {
+    private Map<String, String> getErrorElementByFieldValue(String targetFieldValue) {
         JsonPath responseJsonPath = new JsonPath(getResponse().asString());
 
         String currentFieldValue;

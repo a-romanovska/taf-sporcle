@@ -44,6 +44,9 @@ public class PropertiesUtils {
                 setProperties.setProperty(keyAfterRemovingSetPrefix, allProperties.getProperty(key));
             }
         }
+        if (setProperties.isEmpty()) {
+            logger.info("No set credentials properties were read from file");
+        }
         return setProperties;
     }
 

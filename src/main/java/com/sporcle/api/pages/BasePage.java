@@ -4,20 +4,16 @@ import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
-
-import static io.restassured.RestAssured.given;
 
 public abstract class BasePage {
     protected String URL;
-    protected String propertiesFileName;
+    protected String usedPropertiesFileName;
     protected static Logger logger = LogManager.getLogger();
 
-    protected BasePage(String endpoint, String propertiesFileName) {
+    protected BasePage(String endpoint, String usedPropertiesFileName) {
         this.URL = endpoint;
-        this.propertiesFileName = propertiesFileName;
+        this.usedPropertiesFileName = usedPropertiesFileName;
     }
 
     protected abstract Response getResponse();
@@ -25,26 +21,6 @@ public abstract class BasePage {
     protected abstract Map<String, String> getContentTypeHeader();
 
     protected abstract Map<String, String> getFormParams();
-
-    protected Map<String, String> getFormParams(Properties properties) {
-        Map<String, String> formParams = new HashMap<>();
-
-        String propertyByKey;
-        for (String key : properties.stringPropertyNames()) {
-            propertyByKey = properties.getProperty(key);
-            formParams.put(key, propertyByKey);
-            logger.info("{}: {}", key, propertyByKey);
-        }
-        return formParams;
-    }
-
-    protected Response getResponse(String endpoint, Map<String, String> headers, Map<String, String> formParams) {
-        return given()
-                .headers(headers)
-                .formParams(formParams)
-                .when()
-                .post(endpoint);
-    }
 
     public int getStatusCode() {
         return getResponse().getStatusCode();
