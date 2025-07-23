@@ -21,44 +21,42 @@ public class ProductBarForm extends BaseForm {
         super(form);
     }
 
-    //get clickable element
-    public Button getQuizzesButtonWhenClickable() {
+    private Button getQuizzesButtonWhenClickable() {
         return (Button) getElementWhenClickable(quizzesButton, Button.class);
     }
 
-    public Button getEventsButtonWhenClickable() {
+    private Button getEventsButtonWhenClickable() {
         return (Button) getElementWhenClickable(eventsButton, Button.class);
     }
 
-    public Button getQuizCreationButtonWhenClickable() {
+    private Button getQuizCreationButtonWhenClickable() {
         return (Button) getElementWhenClickable(quizCreationButton, Button.class);
     }
 
-    public Button getCommunityButtonWhenClickable() {
+    private Button getCommunityButtonWhenClickable() {
         return (Button) getElementWhenClickable(communityButton, Button.class);
     }
 
-    public Button getVideosButtonWhenClickable() {
+    private Button getVideosButtonWhenClickable() {
         return (Button) getElementWhenClickable(videosButton, Button.class);
     }
 
-    public Button getPrivateEventsButtonWhenClickable() {
+    private Button getPrivateEventsButtonWhenClickable() {
         return (Button) getElementWhenClickable(privateEventsButton, Button.class);
     }
 
-    public Button getRemoveAdsButtonWhenClickable() {
+    private Button getRemoveAdsButtonWhenClickable() {
         return (Button) getElementWhenClickable(removeAdsButton, Button.class);
     }
 
-    public Button getLogInButtonWhenClickable() {
+    private Button getLogInButtonWhenClickable() {
         return (Button) getElementWhenClickable(logInButton, Button.class);
     }
 
-    public Button getSettingsButtonWhenClickable() {
+    private Button getSettingsButtonWhenClickable() {
         return (Button) getElementWhenClickable(settingsButton, Button.class);
     }
 
-    //click
     @Step("Click [Quizzes] button (ProductBar form)")
     public void clickQuizzesButton() {
         getQuizzesButtonWhenClickable().click();

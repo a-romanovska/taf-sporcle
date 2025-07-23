@@ -3,9 +3,6 @@ package com.sporcle.ui;
 import com.sporcle.enums.Color;
 import com.sporcle.enums.ErrorMessage;
 import com.sporcle.enums.Symbol;
-import com.sporcle.ui.elements.InputField;
-import com.sporcle.ui.elements.Label;
-import com.sporcle.ui.elements.ValidationMessage;
 import com.sporcle.utils.ColorConverterUtils;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
@@ -67,32 +64,30 @@ public class FailedLogInTest extends BaseTest {
 
     @Step("Check that [Email] field turns red + corresponding error message appears")
     private void checkThatEmailInputFieldBehavesLikeErrorWasFound(String expectedMessage) {
-        Label label = logInForm.getEmailLabelWhenVisible();
-        InputField inputField = logInForm.getEmailInputFieldWhenVisible();
-        ValidationMessage validationMessage = logInForm.getEmailValidationMessageWhenVisible();
+        String labelColor = logInForm.getEmailLabelColorValue();
+        String inputFieldBorderBottomColor = logInForm.getEmailInputFieldBorderBottomColorValue();
+        String validationMessageColor = logInForm.getEmailValidationMessageColorValue();
+        String validationMessageText = logInForm.getEmailValidationMessageText();
 
-        checkThatInputFieldBehavesLikeErrorWasFound(label, inputField, validationMessage, expectedMessage);
+        checkThatInputFieldBehavesLikeErrorWasFound(labelColor, inputFieldBorderBottomColor, validationMessageColor, validationMessageText, expectedMessage);
     }
 
     @Step("Check that [Password] field turns red + corresponding error message appears")
     private void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String expectedMessage) {
-        Label label = logInForm.getPasswordLabelWhenVisible();
-        InputField inputField = logInForm.getPasswordInputFieldWhenVisible();
-        ValidationMessage validationMessage = logInForm.getPasswordValidationMessageWhenVisible();
+        String labelColor = logInForm.getPasswordLabelColorValue();
+        String inputFieldBorderBottomColor = logInForm.getPasswordInputFieldBorderBottomColorValue();
+        String validationMessageColor = logInForm.getPasswordValidationMessageColorValue();
+        String validationMessageText = logInForm.getPasswordValidationMessageText();
 
-        checkThatInputFieldBehavesLikeErrorWasFound(label, inputField, validationMessage, expectedMessage);
+        checkThatInputFieldBehavesLikeErrorWasFound(labelColor, inputFieldBorderBottomColor, validationMessageColor, validationMessageText, expectedMessage);
     }
 
-    private void checkThatInputFieldBehavesLikeErrorWasFound(Label label, InputField inputField, ValidationMessage validationMessage, String expectedMessage) {
-        String labelCurrentColorAsRgba = label.getCssValueColor();
-        String inputFieldCurrentBorderBottomColorAsRgba = inputField.getCssValueBorderBottomColor();
-        String validationMessageColorAsRgba = validationMessage.getCssValueColor();
-        String actualMessage = validationMessage.getText();
-
+    private void checkThatInputFieldBehavesLikeErrorWasFound(String labelCurrentColorAsRgba, String inputFieldCurrentBorderBottomColorAsRgba, String validationMessageCurrentColorAsRgba, String validationMessageCurrentText, String expectedMessage) {
         String expectedColor = Color.RED_ERROR.getHexCode();
         String labelCurrentColor = ColorConverterUtils.rgbaToHex(labelCurrentColorAsRgba);
         String inputFieldCurrentBorderBottomColor = ColorConverterUtils.rgbaToHex(inputFieldCurrentBorderBottomColorAsRgba);
-        String validationMessageColor = ColorConverterUtils.rgbaToHex(validationMessageColorAsRgba);
+        String validationMessageColor = ColorConverterUtils.rgbaToHex(validationMessageCurrentColorAsRgba);
+        String actualMessage = validationMessageCurrentText;
 
         assertAll(
                 "Checking that InputField behaves like error was found",

@@ -121,8 +121,4 @@ public class DriverManager {
             }
         }
     }
-
-    public static void switchToOriginalWindow() {
-        driver.switchTo().window(originalWindow);
-    }
 }

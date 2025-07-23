@@ -56,8 +56,8 @@ public class Steps extends BaseTest {
         }
 
         boolean wordIsPresentInResult;
-        String gameTitleText = searchContentForm.getSearchResult1GameTitleText().toUpperCase();
-        String gameDescriptionText = searchContentForm.getSearchResult1GameDescriptionText().toUpperCase();
+        String gameTitleText = searchContentForm.getSearchResultGameTitleText().toUpperCase();
+        String gameDescriptionText = searchContentForm.getSearchResultGameDescriptionText().toUpperCase();
         String[] wordsFromSearchValue = searchValue.trim().toUpperCase().split("\\s+");
 
         logger.info("Actual title: " + gameTitleText);

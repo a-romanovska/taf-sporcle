@@ -15,11 +15,11 @@ public class LogInForm extends BaseForm {
     private final By continueWithGoogleButton = By.xpath("//button[contains(@class, 'google-signup')]");
     private final By joinSporcleForFree = By.id("switch-to-join-modal");
     private final By continueWithAppleButton = By.id("apple-signin");
-    private final By emailInputField = By.id("email");
     private final By emailLabel = By.xpath("//label[@for='email']");
+    private final By emailInputField = By.id("email");
     private final By emailValidationMessage = By.id("email-error");
-    private final By passwordInputField = By.id("password");
     private final By passwordLabel = By.xpath("//label[@for='password']");
+    private final By passwordInputField = By.id("password");
     private final By passwordValidationMessage = By.id("password-error");
     private final By forgotPasswordButton = By.xpath("//a[@href='/forgot/']");
     private final By goHereButton = By.xpath("//a[@href='/facebook-account/']");
@@ -29,156 +29,135 @@ public class LogInForm extends BaseForm {
         super(form);
     }
 
-    //get clickable
-    public Button getCloseButtonWhenClickable() {
-        return getButtonWhenClickable(closeButton);
-    }
-
-    public Button getCommunityGuidelinesButtonWhenClickable() {
-        return getButtonWhenClickable(communityGuidelinesButton);
-    }
-
-    public Button getContinueWithGoogleButtonWhenClickable() {
-        return getButtonWhenClickable(continueWithGoogleButton);
-    }
-
-    public Button getContinueWithAppleButtonWhenClickable() {
-        return getButtonWhenClickable(continueWithAppleButton);
-    }
-
-    public Button getJoinSporcleForFreeButtonWhenClickable() {
-        return getButtonWhenClickable(joinSporcleForFree);
-    }
-
-    public Button getForgotPasswordButtonWhenClickable() {
-        return getButtonWhenClickable(forgotPasswordButton);
-    }
-
-    public Button getGoHereButtonWhenClickable() {
-        return getButtonWhenClickable(goHereButton);
-    }
-
-    public Button getLogInButtonWhenClickable() {
-        return getButtonWhenClickable(logInButton);
-    }
-
-    //get visible
-    public InputField getEmailInputFieldWhenVisible() {
-        return getInputFieldWhenVisible(emailInputField);
-    }
-
-    public InputField getPasswordInputFieldWhenVisible() {
-        return getInputFieldWhenVisible(passwordInputField);
-    }
-
-    public Label getEmailLabelWhenVisible() {
+    private Label getEmailLabelWhenVisible() {
         return getLabelWhenVisible(emailLabel);
     }
 
-    public Label getPasswordLabelWhenVisible() {
-        return getLabelWhenVisible(passwordLabel);
+    private InputField getEmailInputFieldWhenVisible() {
+        return getInputFieldWhenVisible(emailInputField);
     }
 
     public ValidationMessage getEmailValidationMessageWhenVisible() {
         return getValidationMessageWhenVisible(emailValidationMessage);
     }
 
-    public ValidationMessage getPasswordValidationMessageWhenVisible() {
+    private Label getPasswordLabelWhenVisible() {
+        return getLabelWhenVisible(passwordLabel);
+    }
+
+    private InputField getPasswordInputFieldWhenVisible() {
+        return getInputFieldWhenVisible(passwordInputField);
+    }
+
+    private ValidationMessage getPasswordValidationMessageWhenVisible() {
         return getValidationMessageWhenVisible(passwordValidationMessage);
     }
 
-    //get text
+    private Button getCloseButtonWhenClickable() {
+        return getButtonWhenClickable(closeButton);
+    }
+
+    private Button getCommunityGuidelinesButtonWhenClickable() {
+        return getButtonWhenClickable(communityGuidelinesButton);
+    }
+
+    private Button getContinueWithGoogleButtonWhenClickable() {
+        return getButtonWhenClickable(continueWithGoogleButton);
+    }
+
+    private Button getContinueWithAppleButtonWhenClickable() {
+        return getButtonWhenClickable(continueWithAppleButton);
+    }
+
+    private Button getJoinSporcleForFreeButtonWhenClickable() {
+        return getButtonWhenClickable(joinSporcleForFree);
+    }
+
+    private Button getForgotPasswordButtonWhenClickable() {
+        return getButtonWhenClickable(forgotPasswordButton);
+    }
+
+    private Button getGoHereButtonWhenClickable() {
+        return getButtonWhenClickable(goHereButton);
+    }
+
+    private Button getLogInButtonWhenClickable() {
+        return getButtonWhenClickable(logInButton);
+    }
+
     public String getEmailValidationMessageText() {
-        //return getValidationMessageWhenVisible(emailValidationMessage).getText();
-        return getElementWhenVisible(emailValidationMessage).getText();
+        return getEmailValidationMessageWhenVisible().getText();
     }
 
     public String getPasswordValidationMessageText() {
-        //return getValidationMessageWhenVisible(passwordValidationMessage).getText();
-        return getElementWhenVisible(passwordValidationMessage).getText();
+        return getPasswordValidationMessageWhenVisible().getText();
     }
 
-    //get color
     public String getEmailLabelColorValue() {
-        //return getLabelWhenVisible(emailLabel).getCssValueColor();
-        return getElementWhenVisible(emailLabel).getCssValueColor();
+        return getEmailLabelWhenVisible().getCssValueColor();
     }
 
     public String getPasswordLabelColorValue() {
-        //return getLabelWhenVisible(passwordLabel).getCssValueColor();
-        return getElementWhenVisible(passwordLabel).getCssValueColor();
+        return getPasswordLabelWhenVisible().getCssValueColor();
     }
 
     public String getEmailValidationMessageColorValue() {
-        //return getValidationMessageWhenVisible(emailValidationMessage).getCssValueColor();
-        return getElementWhenVisible(emailValidationMessage).getCssValueColor();
+        return getEmailValidationMessageWhenVisible().getCssValueColor();
     }
 
     public String getPasswordValidationMessageColorValue() {
-        //return getValidationMessageWhenVisible(passwordValidationMessage).getCssValueColor();
-        return getElementWhenVisible(passwordValidationMessage).getCssValueColor();
+        return getPasswordValidationMessageWhenVisible().getCssValueColor();
     }
 
-    //get border bottom color
     public String getEmailInputFieldBorderBottomColorValue() {
-        //return getInputFieldWhenVisible(emailInputField).getCssValueBorderBottomColor();
-        return getElementWhenVisible(emailInputField).getCssValueBorderBottomColor();
+        return getEmailInputFieldWhenVisible().getCssValueBorderBottomColor();
     }
 
     public String getPasswordInputFieldBorderBottomColorValue() {
-        //return getInputFieldWhenVisible(passwordInputField).getCssValueBorderBottomColor();
-        return getElementWhenVisible(passwordInputField).getCssValueBorderBottomColor();
+        return getPasswordInputFieldWhenVisible().getCssValueBorderBottomColor();
     }
 
-    //click
     @Step("Click [Close] button ([Log In] form)")
     public void clickCloseButton() {
-        //getButtonWhenClickable(closeButton).click();
-        getButtonWhenClickable(closeButton).click();
+        getCloseButtonWhenClickable().click();
     }
 
     @Step("Click [Community Guidelines] link ([Log In] form)")
     public void clickCommunityGuidelinesButton() {
-        //getButtonWhenClickable(communityGuidelinesButton).click();
-        getButtonWhenClickable(communityGuidelinesButton).click();
+        getCommunityGuidelinesButtonWhenClickable().click();
     }
 
     @Step("Click [Continue with Google] button ([Log In] form)")
     public void clickContinueWithGoogleButton() {
-        //getButtonWhenClickable(continueWithGoogleButton).click();
-        getButtonWhenClickable(continueWithGoogleButton).click();
+        getContinueWithGoogleButtonWhenClickable().click();
     }
 
     @Step("Click [Continue with Apple] button ([Log In] form)")
     public void clickContinueWithAppleButton() {
-        //getButtonWhenClickable(continueWithAppleButton).click();
-        getButtonWhenClickable(continueWithAppleButton).click();
+        getContinueWithAppleButtonWhenClickable().click();
     }
 
     @Step("Click [Join Sporcle for Free] button ([Log In] form)")
     public void clickJoinSporcleForFreeButton() {
-        getButtonWhenClickable(joinSporcleForFree).click();
+        getJoinSporcleForFreeButtonWhenClickable().click();
     }
 
     @Step("Click [Forgot password] button ([Log In] form)")
     public void clickGForgotPasswordButton() {
-        getButtonWhenClickable(forgotPasswordButton).click();
+        getForgotPasswordButtonWhenClickable().click();
     }
 
     @Step("Click [Go Here] button ([Log In] form)")
     public void clickGoHereButton() {
-        //getButtonWhenClickable(goHereButton).click();
-        getButtonWhenClickable(goHereButton).click();
+        getGoHereButtonWhenClickable().click();
     }
 
     @Step("Click [Log In] button ([Log In] form)")
     @When("Click [Log In] on LogIn form")
     public void clickLogInButton() {
-        //getButtonWhenClickable(logInButton).click();
-        getButtonWhenClickable(logInButton).click();
+        getLogInButtonWhenClickable().click();
     }
 
-    //input
     @Step("Fill [Email] field ([Log In] form)")
     public void inputEmail(String email) {
         logger.info("inputEmail method start");

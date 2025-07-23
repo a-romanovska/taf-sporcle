@@ -47,14 +47,6 @@ public abstract class BasePage {
         DriverManager.switchToNextWindow();
     }
 
-    public static void closeCurrentWindow() {
-        DriverManager.closeCurrentWindow();
-    }
-
-    public static void switchToOriginalWindow() {
-        DriverManager.switchToOriginalWindow();
-    }
-
     protected boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
         return DriverManager.waitForVisibilityState(locator, shouldBeVisible);
     }

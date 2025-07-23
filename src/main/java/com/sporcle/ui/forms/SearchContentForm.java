@@ -6,35 +6,32 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class SearchContentForm extends BaseForm {
-    private final String searchResultsListXpath = "//ol[@id='searchResults']";
-    private final String searchResult1Xpath = searchResultsListXpath + "//li[1]";
-    private final By searchResult1GameTitle = By.xpath(searchResult1Xpath + "//div[@class='gameTitle']");
-    private final By searchResult1GameDescription = By.xpath(searchResult1Xpath + "//p[@class='gameDesc']");
-    private final By noQuizzesFoundMessage = By.xpath("//div[@id='columnContainer']//h2");
+    private final By searchResultGameTitle = By.xpath("//div[@class='gameTitle']");
+    private final By searchResultGameDescription = By.xpath("//p[@class='gameDesc']");
+    private final By noQuizzesFoundMessage = By.xpath("//h2");
 
     public SearchContentForm(WebElement form) {
         super(form);
     }
 
-    public ListElement getSearchResult1GameTitleWhenVisible() {
-        return getListElementWhenVisible(searchResult1GameTitle);
+    private ListElement getSearchResultGameTitleWhenVisible() {
+        return getListElementWhenVisible(searchResultGameTitle);
     }
 
-    public ListElement getSearchResult1GameDescriptionWhenVisible() {
-        return getListElementWhenVisible(searchResult1GameDescription);
+    private ListElement getSearchResultGameDescriptionWhenVisible() {
+        return getListElementWhenVisible(searchResultGameDescription);
     }
 
-    public ValidationMessage getNoQuizzesFoundMessageWhenVisible() {
+    private ValidationMessage getNoQuizzesFoundMessageWhenVisible() {
         return getValidationMessageWhenVisible(noQuizzesFoundMessage);
     }
 
-    //get text
-    public String getSearchResult1GameTitleText() {
-        return getSearchResult1GameTitleWhenVisible().getText();
+    public String getSearchResultGameTitleText() {
+        return getSearchResultGameTitleWhenVisible().getText();
     }
 
-    public String getSearchResult1GameDescriptionText() {
-        return getSearchResult1GameDescriptionWhenVisible().getText();
+    public String getSearchResultGameDescriptionText() {
+        return getSearchResultGameDescriptionWhenVisible().getText();
     }
 
     public String getNoQuizzesFoundMessageText() {

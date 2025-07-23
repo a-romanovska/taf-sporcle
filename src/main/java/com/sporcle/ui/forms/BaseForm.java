@@ -9,12 +9,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public abstract class BaseForm {
+    protected final WebElement form;
+
     private final By startLoupeButton = By.xpath("//li[@class='main-search']");
     private final String searchMenuXpath = "//div[@id='search-menu']";
     private final By searchInputField = By.xpath(searchMenuXpath + "//input");
     private final By inputLoupeButton = By.xpath(searchMenuXpath + "//button");
-
-    protected final WebElement form;
 
     protected static final Logger logger = LogManager.getLogger();
 
@@ -22,16 +22,25 @@ public abstract class BaseForm {
         this.form = form;
     }
 
-    protected BaseElement getElementWhenClickable(By locator, Class<? extends BaseElement> returnElementClass) {
-        return DriverManager.getObjectWhenClickable(locator, returnElementClass);
+    @Step("Click [Start loupe] button")
+    public void clickStartLoupeButton() {
+        getStartLoupeButtonWhenClickable().click();
+    }
+
+    @Step("Click [Input loupe] button")
+    public void clickInputLoupeButton() {
+        getInputLoupeButtonWhenClickable().click();
+    }
+
+    @Step("Fill [Search bar]")
+    public void inputSearchInputField(String searchValue) {
+        logger.info("input Search value method start");
+        getSearchInputFieldWhenClickable().inputValue(searchValue);
+        logger.info("searchValue = {}", searchValue);
     }
 
     protected BaseElement getElementWhenVisible(By locator, Class<? extends BaseElement> returnElementClass) {
         return DriverManager.getObjectWhenVisible(locator, returnElementClass);
-    }
-
-    protected BaseElement getElementWhenVisible(By locator) {
-        return getElementWhenVisible(locator, BaseElement.class);
     }
 
     protected Label getLabelWhenVisible(By locator) {
@@ -50,8 +59,8 @@ public abstract class BaseForm {
         return (ListElement) getElementWhenVisible(locator, ListElement.class);
     }
 
-    protected BaseElement getElementWhenClickable(By locator) {
-        return getElementWhenClickable(locator, BaseElement.class);
+    protected BaseElement getElementWhenClickable(By locator, Class<? extends BaseElement> returnElementClass) {
+        return DriverManager.getObjectWhenClickable(locator, returnElementClass);
     }
 
     protected Button getButtonWhenClickable(By locator) {
@@ -72,26 +81,5 @@ public abstract class BaseForm {
 
     public InputField getSearchInputFieldWhenClickable() {
         return (InputField) getElementWhenClickable(searchInputField, InputField.class);
-    }
-
-    public InputField getSearchInputFieldWhenVisible() {
-        return (InputField) getElementWhenVisible(searchInputField, InputField.class);
-    }
-
-    @Step("Click [Start loupe] button")
-    public void clickStartLoupeButton() {
-        getStartLoupeButtonWhenClickable().click();
-    }
-
-    @Step("Click [Input loupe] button")
-    public void clickInputLoupeButton() {
-        getInputLoupeButtonWhenClickable().click();
-    }
-
-    @Step("Fill [Search bar]")
-    public void inputSearchInputField(String searchValue) {
-        logger.info("input Search value method start");
-        getSearchInputFieldWhenClickable().inputValue(searchValue);
-        logger.info("searchValue = {}", searchValue);
     }
 }
