@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.net.HttpURLConnection;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class SearchTest extends BaseTest {
@@ -74,7 +76,7 @@ public class SearchTest extends BaseTest {
 
     @Step("Check that search result is correct")
     private void checkSearchResult() {
-        logger.info("SearchValue is '" + searchValue + "'");
+        logger.info("SearchValue is '{}'", searchValue);
 
         String responseHtml = searchPage.doSearch(searchValue);
 
@@ -88,7 +90,7 @@ public class SearchTest extends BaseTest {
             return;
         }
 
-        if (searchValue.isEmpty() || searchValue.equals(" ")) {
+        if (searchValue.isEmpty() || searchValue.equals(Symbol.SPACE.getSymbol())) {
             logger.info("Random quizzes are shown for empty SearchValue - correct");
             return;
         }
@@ -102,7 +104,7 @@ public class SearchTest extends BaseTest {
             wordIsPresentInResult = false;
 
             if (gameTitleText.contains(word) || gameDescriptionText.contains(word)) {
-                logger.info("Word '" + word + "' was found");
+                logger.info("Word '{}' was found", searchValue);
                 wordIsPresentInResult = true;
             }
             Assertions.assertTrue(wordIsPresentInResult, "Game title and description do not contain " + word);
@@ -111,7 +113,7 @@ public class SearchTest extends BaseTest {
 
     @Step("Check that 'No quizzes found' message is displayed instead of search result")
     private void checkNoQuizzesFoundMessage() {
-        logger.info("SearchValue is '" + searchValue + "'");
+        logger.info("SearchValue is '{}'", searchValue);
 
         String responseHtml = searchPage.doSearch(searchValue);
 
@@ -130,6 +132,7 @@ public class SearchTest extends BaseTest {
 
         String actualMessageText = noQuizzesFoundMessage.text();
         assertAll(
+                () -> Assertions.assertEquals(HttpURLConnection.HTTP_OK, searchPage.getStatusCode()),
                 () -> Assertions.assertTrue(actualMessageText.contains(ErrorMessage.SEARCH_NO_QUIZZES_FOUND.getMessage()), "Incorrect message text"),
                 () -> Assertions.assertTrue(actualMessageText.contains(searchValue), "Incorrect SearchValue in message text")
         );
