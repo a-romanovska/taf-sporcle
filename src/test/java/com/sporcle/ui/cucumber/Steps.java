@@ -60,17 +60,17 @@ public class Steps extends BaseTest {
         String gameDescriptionText = searchContentForm.getSearchResultGameDescriptionText().toUpperCase();
         String[] wordsFromSearchValue = searchValue.trim().toUpperCase().split("\\s+");
 
-        logger.info("Actual title: " + gameTitleText);
-        logger.info("Actual description: " + gameDescriptionText);
+        logger.info("Actual title: {}", gameTitleText);
+        logger.info("Actual description: {}", gameDescriptionText);
 
         for (String word : wordsFromSearchValue) {
             wordIsPresentInResult = false;
 
             if (gameTitleText.contains(word) || gameDescriptionText.contains(word)) {
-                System.out.println("Word '" + word + "' was found");
+                logger.info("Word '{}' was found", word);
                 wordIsPresentInResult = true;
             }
-            Assertions.assertTrue(wordIsPresentInResult, "Game title and description do not contain " + word);
+            Assertions.assertTrue(wordIsPresentInResult, String.format("Game title and description do not contain %s", word));
         }
     }
 

@@ -67,9 +67,9 @@ public class FailedLogInTest extends BaseTest {
         String actualMessage = logInForm.getEmailValidationMessageText();
         assertAll(
                 "Checking that InputField behaves like error was found",
-                () -> Assertions.assertTrue(logInForm.checkEmailLabelColorValue(expectedColor), "Label color is not " + expectedColor),
-                () -> Assertions.assertTrue(logInForm.checkEmailInputFieldBorderBottomColorValue(expectedColor), "InputField border bottom color is not " + expectedColor),
-                () -> Assertions.assertTrue(logInForm.checkEmailValidationMessageColorValue(expectedColor), "ValidationMessage color is not " + expectedColor),
+                () -> Assertions.assertTrue(logInForm.checkEmailLabelColorValue(expectedColor), String.format("Label color is not %s", expectedColor)),
+                () -> Assertions.assertTrue(logInForm.checkEmailInputFieldBorderBottomColorValue(expectedColor), String.format("InputField border bottom color is not %s", expectedColor)),
+                () -> Assertions.assertTrue(logInForm.checkEmailValidationMessageColorValue(expectedColor), String.format("ValidationMessage color is not %s", expectedColor)),
                 () -> Assertions.assertEquals(expectedMessage, actualMessage, "ValidationMessage text is incorrect")
         );
     }
@@ -80,9 +80,9 @@ public class FailedLogInTest extends BaseTest {
         String actualMessage = logInForm.getPasswordValidationMessageText();
         assertAll(
                 "Checking that InputField behaves like error was found",
-                () -> Assertions.assertTrue(logInForm.checkPasswordLabelColorValue(expectedColor), "Label color is not " + expectedColor),
-                () -> Assertions.assertTrue(logInForm.checkPasswordInputFieldBorderBottomColorValue(expectedColor), "InputField border bottom color is not " + expectedColor),
-                () -> Assertions.assertTrue(logInForm.checkPasswordValidationMessageColorValue(expectedColor), "ValidationMessage color is not " + expectedColor),
+                () -> Assertions.assertTrue(logInForm.checkPasswordLabelColorValue(expectedColor), String.format("Label color is not %s", expectedColor)),
+                () -> Assertions.assertTrue(logInForm.checkPasswordInputFieldBorderBottomColorValue(expectedColor), String.format("InputField border bottom color is not %s", expectedColor)),
+                () -> Assertions.assertTrue(logInForm.checkPasswordValidationMessageColorValue(expectedColor), String.format("ValidationMessage color is not %s", expectedColor)),
                 () -> Assertions.assertEquals(expectedMessage, actualMessage, "ValidationMessage text is incorrect")
         );
     }

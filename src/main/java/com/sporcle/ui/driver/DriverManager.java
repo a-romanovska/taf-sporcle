@@ -119,7 +119,7 @@ public class DriverManager {
         try {
             return returnClass.getConstructor(WebElement.class).newInstance(webElement);
         } catch (Exception e) {
-            logger.info("Error when trying to create object " + returnClass.getName());
+            logger.info("Error when trying to create object {}", returnClass.getName());
             return null;
         }
     }
