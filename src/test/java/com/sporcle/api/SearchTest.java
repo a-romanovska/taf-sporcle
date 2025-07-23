@@ -140,11 +140,11 @@ public class SearchTest extends BaseTest {
 
     private boolean arePresent(Element gameTitle, Element gameDescription) {
         if (gameTitle == null) {
-            logger.info(" <a class='gameName'> is not found");
+            logger.info("<a class='gameName'> is not found");
             return false;
         }
         if (gameDescription == null) {
-            logger.info(" <p class='gameDesc'> is not found");
+            logger.info("<p class='gameDesc'> is not found");
             return false;
         }
         return true;
