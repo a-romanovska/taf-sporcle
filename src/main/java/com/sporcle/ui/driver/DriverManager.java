@@ -16,6 +16,7 @@ import java.util.Set;
 public class DriverManager {
     private static WebDriver driver;
     private static String originalWindow;
+    private static final int MORE_THAN_ONE = 2;
 
     private DriverManager() {
     }
@@ -40,10 +41,6 @@ public class DriverManager {
         }
     }
 
-    public static void closeCurrentWindow() {
-        driver.close();
-    }
-
     public static String getCurrentUrl() {
         if (driver == null) {
             return Symbol.EMPTY.getSymbol();
@@ -58,6 +55,50 @@ public class DriverManager {
         } else {
             return driver.getTitle();
         }
+    }
+
+    public static void switchToNextWindow() {
+        getOrCheckObjectWhenConditionIsMet(ExpectedConditions.numberOfWindowsToBe(MORE_THAN_ONE));
+
+        Set<String> windowHandles = getDriver().getWindowHandles();
+
+        for (String handle : windowHandles) {
+            if (!handle.equals(originalWindow)) {
+                getDriver().switchTo().window(handle);
+                break;
+            }
+        }
+    }
+
+    public static boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
+        if (shouldBeVisible) {
+            return checkThatObjectBecomesVisible(locator);
+        } else {
+            return checkThatObjectBecomesInvisible(locator);
+        }
+    }
+
+    private static boolean checkThatObjectBecomesVisible(By locator) {
+        ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
+        boolean isVisible = (getOrCheckObjectWhenConditionIsMet(condition) != null);
+        return isVisible;
+    }
+
+    private static boolean checkThatObjectBecomesInvisible(By locator) {
+        ExpectedCondition<Boolean> condition = ExpectedConditions.invisibilityOfElementLocated(locator);
+        boolean isInvisible = getOrCheckObjectWhenConditionIsMet(condition);
+        return isInvisible;
+    }
+
+    public static WebElement getWebElement(By locator) {
+        return getDriver().findElement(locator);
+    }
+
+    public static boolean checkThatObjectAttributeBecomesExpected(By locator, String attribute, String expectedColor) {
+        WebElement webElement = getWebElement(locator);
+        ExpectedCondition<Boolean> condition = ExpectedConditions.attributeToBe(webElement, attribute, expectedColor);
+        boolean isExpected = getOrCheckObjectWhenConditionIsMet(condition);
+        return isExpected;
     }
 
     private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition, int specifiedTimeoutSeconds) {
@@ -87,38 +128,5 @@ public class DriverManager {
     public static <T> T getObjectWhenClickable(By locator, Class<T> returnClass) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.elementToBeClickable(locator);
         return getOrCheckObjectWhenConditionIsMet(condition, returnClass);
-    }
-
-    private static boolean checkThatObjectBecomesVisible(By locator) {
-        ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        boolean isVisible = (getOrCheckObjectWhenConditionIsMet(condition) != null);
-        return isVisible;
-    }
-
-    private static boolean checkThatObjectBecomesInvisible(By locator) {
-        ExpectedCondition<Boolean> condition = ExpectedConditions.invisibilityOfElementLocated(locator);
-        boolean isInvisible = getOrCheckObjectWhenConditionIsMet(condition);
-        return isInvisible;
-    }
-
-    public static boolean waitForVisibilityState(By locator, boolean shouldBeVisible) {
-        if (shouldBeVisible) {
-            return checkThatObjectBecomesVisible(locator);
-        } else {
-            return checkThatObjectBecomesInvisible(locator);
-        }
-    }
-
-    public static void switchToNextWindow() {
-        getOrCheckObjectWhenConditionIsMet(ExpectedConditions.numberOfWindowsToBe(2));
-
-        Set<String> windowHandles = getDriver().getWindowHandles();
-
-        for (String handle : windowHandles) {
-            if (!handle.equals(originalWindow)) {
-                driver.switchTo().window(handle);
-                break;
-            }
-        }
     }
 }

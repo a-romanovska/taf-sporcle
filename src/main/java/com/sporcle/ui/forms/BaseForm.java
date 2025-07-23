@@ -2,6 +2,7 @@ package com.sporcle.ui.forms;
 
 import com.sporcle.ui.driver.DriverManager;
 import com.sporcle.ui.elements.*;
+import com.sporcle.utils.ColorConverterUtils;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +38,16 @@ public abstract class BaseForm {
         logger.info("input Search value method start");
         getSearchInputFieldWhenClickable().inputValue(searchValue);
         logger.info("searchValue = {}", searchValue);
+    }
+
+    protected boolean checkCurrentColor(By locator, String expectedColor) {
+        expectedColor = ColorConverterUtils.hexToRgba(expectedColor);
+        return DriverManager.checkThatObjectAttributeBecomesExpected(locator, BaseElement.getColorPropertyName(), expectedColor);
+    }
+
+    protected boolean checkCurrentBorderBottomColor(By locator, String expectedColor) {
+        expectedColor = ColorConverterUtils.hexToRgba(expectedColor);
+        return DriverManager.checkThatObjectAttributeBecomesExpected(locator, BaseElement.getBorderBottomColorPropertyName(), expectedColor);
     }
 
     protected BaseElement getElementWhenVisible(By locator, Class<? extends BaseElement> returnElementClass) {

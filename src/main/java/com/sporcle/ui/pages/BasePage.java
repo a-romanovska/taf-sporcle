@@ -48,7 +48,7 @@ public abstract class BasePage {
     }
 
     protected boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
-        return DriverManager.waitForVisibilityState(locator, shouldBeVisible);
+        return DriverManager.checkVisibilityState(locator, shouldBeVisible);
     }
 
     public boolean logInFormIsVisible() {

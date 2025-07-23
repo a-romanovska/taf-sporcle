@@ -117,6 +117,30 @@ public class LogInForm extends BaseForm {
         return getPasswordInputFieldWhenVisible().getCssValueBorderBottomColor();
     }
 
+    public boolean checkEmailLabelColorValue(String expectedColor) {
+        return checkCurrentColor(emailLabel, expectedColor);
+    }
+
+    public boolean checkEmailValidationMessageColorValue(String expectedColor) {
+        return checkCurrentColor(emailValidationMessage, expectedColor);
+    }
+
+    public boolean checkEmailInputFieldBorderBottomColorValue(String expectedColor) {
+        return checkCurrentBorderBottomColor(emailInputField, expectedColor);
+    }
+
+    public boolean checkPasswordLabelColorValue(String expectedColor) {
+        return checkCurrentColor(passwordLabel, expectedColor);
+    }
+
+    public boolean checkPasswordValidationMessageColorValue(String expectedColor) {
+        return checkCurrentColor(passwordValidationMessage, expectedColor);
+    }
+
+    public boolean checkPasswordInputFieldBorderBottomColorValue(String expectedColor) {
+        return checkCurrentBorderBottomColor(passwordInputField, expectedColor);
+    }
+
     @Step("Click [Close] button ([Log In] form)")
     public void clickCloseButton() {
         getCloseButtonWhenClickable().click();

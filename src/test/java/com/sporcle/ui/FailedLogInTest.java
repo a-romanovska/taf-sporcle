@@ -3,7 +3,6 @@ package com.sporcle.ui;
 import com.sporcle.enums.Color;
 import com.sporcle.enums.ErrorMessage;
 import com.sporcle.enums.Symbol;
-import com.sporcle.utils.ColorConverterUtils;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,36 +63,27 @@ public class FailedLogInTest extends BaseTest {
 
     @Step("Check that [Email] field turns red + corresponding error message appears")
     private void checkThatEmailInputFieldBehavesLikeErrorWasFound(String expectedMessage) {
-        String labelColor = logInForm.getEmailLabelColorValue();
-        String inputFieldBorderBottomColor = logInForm.getEmailInputFieldBorderBottomColorValue();
-        String validationMessageColor = logInForm.getEmailValidationMessageColorValue();
-        String validationMessageText = logInForm.getEmailValidationMessageText();
-
-        checkThatInputFieldBehavesLikeErrorWasFound(labelColor, inputFieldBorderBottomColor, validationMessageColor, validationMessageText, expectedMessage);
+        String expectedColor = Color.RED_ERROR.getHexCode();
+        String actualMessage = logInForm.getEmailValidationMessageText();
+        assertAll(
+                "Checking that InputField behaves like error was found",
+                () -> Assertions.assertTrue(logInForm.checkEmailLabelColorValue(expectedColor), "Label color is not " + expectedColor),
+                () -> Assertions.assertTrue(logInForm.checkEmailInputFieldBorderBottomColorValue(expectedColor), "InputField border bottom color is not " + expectedColor),
+                () -> Assertions.assertTrue(logInForm.checkEmailValidationMessageColorValue(expectedColor), "ValidationMessage color is not " + expectedColor),
+                () -> Assertions.assertEquals(expectedMessage, actualMessage, "ValidationMessage text is incorrect")
+        );
     }
 
     @Step("Check that [Password] field turns red + corresponding error message appears")
     private void checkThatPasswordInputFieldBehavesLikeErrorWasFound(String expectedMessage) {
-        String labelColor = logInForm.getPasswordLabelColorValue();
-        String inputFieldBorderBottomColor = logInForm.getPasswordInputFieldBorderBottomColorValue();
-        String validationMessageColor = logInForm.getPasswordValidationMessageColorValue();
-        String validationMessageText = logInForm.getPasswordValidationMessageText();
-
-        checkThatInputFieldBehavesLikeErrorWasFound(labelColor, inputFieldBorderBottomColor, validationMessageColor, validationMessageText, expectedMessage);
-    }
-
-    private void checkThatInputFieldBehavesLikeErrorWasFound(String labelCurrentColorAsRgba, String inputFieldCurrentBorderBottomColorAsRgba, String validationMessageCurrentColorAsRgba, String validationMessageCurrentText, String expectedMessage) {
         String expectedColor = Color.RED_ERROR.getHexCode();
-        String labelCurrentColor = ColorConverterUtils.rgbaToHex(labelCurrentColorAsRgba);
-        String inputFieldCurrentBorderBottomColor = ColorConverterUtils.rgbaToHex(inputFieldCurrentBorderBottomColorAsRgba);
-        String validationMessageColor = ColorConverterUtils.rgbaToHex(validationMessageCurrentColorAsRgba);
-        String actualMessage = validationMessageCurrentText;
-
+        String actualMessage = logInForm.getPasswordValidationMessageText();
         assertAll(
                 "Checking that InputField behaves like error was found",
-                () -> Assertions.assertTrue(labelCurrentColor.startsWith(expectedColor), "Label color is not " + expectedColor),
-                () -> Assertions.assertTrue(inputFieldCurrentBorderBottomColor.startsWith(expectedColor), "InputField border bottom color is not " + expectedColor),
-                () -> Assertions.assertTrue(validationMessageColor.startsWith(expectedColor), "ValidationMessage color is not " + expectedColor),
-                () -> Assertions.assertEquals(expectedMessage, actualMessage, "ValidationMessage text is incorrect"));
+                () -> Assertions.assertTrue(logInForm.checkPasswordLabelColorValue(expectedColor), "Label color is not " + expectedColor),
+                () -> Assertions.assertTrue(logInForm.checkPasswordInputFieldBorderBottomColorValue(expectedColor), "InputField border bottom color is not " + expectedColor),
+                () -> Assertions.assertTrue(logInForm.checkPasswordValidationMessageColorValue(expectedColor), "ValidationMessage color is not " + expectedColor),
+                () -> Assertions.assertEquals(expectedMessage, actualMessage, "ValidationMessage text is incorrect")
+        );
     }
 }
