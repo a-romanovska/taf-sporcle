@@ -56,7 +56,7 @@ public class ProductBarTest extends BaseTest {
     @Test
     public void testOpenLogInForm() {
         productBarForm.clickLogInButton();
-        checkThatLogInFormIsVisible();
+        checkIfLogInFormIsVisible();
     }
 
     @Test

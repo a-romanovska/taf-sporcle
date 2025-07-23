@@ -74,8 +74,8 @@ public class BaseTest {
         return logInForm;
     }
 
-    @Step("Check that [Log In] form is opened")
-    public void checkThatLogInFormIsVisible() {
+    @Step("Check if [Log In] form is opened")
+    public void checkIfLogInFormIsVisible() {
         Assertions.assertTrue(homePage.logInFormIsVisible(), "[Log In] form is not opened");
     }
 

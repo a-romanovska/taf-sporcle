@@ -113,8 +113,8 @@ public class Steps extends BaseTest {
     }
 
     @Then("Check that [Log In] form is opened")
-    public void checkThatLogInFormIsVisible() {
-        baseTest.checkThatLogInFormIsVisible();
+    public void checkIfLogInFormIsVisible() {
+        baseTest.checkIfLogInFormIsVisible();
     }
 
     @Then("Check that [Settings] form is opened")

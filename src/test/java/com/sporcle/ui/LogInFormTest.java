@@ -13,7 +13,7 @@ public class LogInFormTest extends BaseTest {
     @Test
     public void testCloseLogInFormViaCloseButton() {
         logInForm.clickCloseButton();
-        checkThatLogInFormIsVisible();
+        checkIfLogInFormIsVisible();
     }
 
     @Test

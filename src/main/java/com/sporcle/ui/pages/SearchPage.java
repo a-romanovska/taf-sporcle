@@ -12,7 +12,6 @@ public class SearchPage extends BasePage {
         super(Endpoints.SEARCH, PageTitle.SEARCH.getTitle());
     }
 
-    //get visible form
     public SearchContentForm getSearchContentFormWhenVisible() {
         return (SearchContentForm) getFormWhenVisible(searchContentForm, SearchContentForm.class);
     }

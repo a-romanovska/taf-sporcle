@@ -15,7 +15,6 @@ public class Endpoints {
     public static final String COMMUNITY_GUIDELINES = BASE_URL + "/community/";
     public static final String FORGOT_PASSWORD = BASE_URL + "/forgot/";
     public static final String FACEBOOK_ACCOUNT = BASE_URL + "/facebook-account/";
-
     public static final String CONTINUE_WITH_GOOGLE = PropertiesUtils.getContinueWithGoogleUrl();
     public static final String CONTINUE_WITH_APPLE = PropertiesUtils.getContinueWithAppleUrl();
 }
