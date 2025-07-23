@@ -15,6 +15,7 @@ import java.util.Properties;
 import static io.restassured.RestAssured.given;
 
 public class LogInPage extends BasePage {
+    protected String usedPropertiesFileName;
     private final String credentialsSet;
     private final String contentTypeKey = "content-type";
     private final String contentTypeValue = "application/x-www-form-urlencoded; charset=UTF-8";
@@ -25,8 +26,9 @@ public class LogInPage extends BasePage {
     private final String messageKey = "message";
     private final String errorTextPath = "error_text";
 
-    public LogInPage(String propertiesFileName, String credentialsSet) {
-        super(Endpoints.LOGIN, propertiesFileName);
+    public LogInPage(String usedPropertiesFileName, String credentialsSet) {
+        super(Endpoints.LOGIN);
+        this.usedPropertiesFileName = usedPropertiesFileName;
         this.credentialsSet = credentialsSet;
     }
 
@@ -43,15 +45,13 @@ public class LogInPage extends BasePage {
                 .post(endpoint);
     }
 
-    @Override
-    protected Map<String, String> getContentTypeHeader() {
+    private Map<String, String> getContentTypeHeader() {
         Map<String, String> header = new HashMap<>();
         header.put(contentTypeKey, contentTypeValue);
         return header;
     }
 
-    @Override
-    protected Map<String, String> getFormParams() {
+    private Map<String, String> getFormParams() {
         Properties setProperties = PropertiesUtils.readSetFromCredentialsProperties(usedPropertiesFileName, credentialsSet);
 
         Map<String, String> formParams = new HashMap<>();
