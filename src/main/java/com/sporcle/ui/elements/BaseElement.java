@@ -26,16 +26,4 @@ public abstract class BaseElement {
     public String getText() {
         return element.getText();
     }
-
-    private String getCssValue(String propertyName) {
-        return element.getCssValue(propertyName);
-    }
-
-    public String getCssValueColor() {
-        return getCssValue(COLOR_PROPERTY_NAME);
-    }
-
-    public String getCssValueBorderBottomColor() {
-        return getCssValue(BORDER_BOTTOM_COLOR_PROPERTY_NAME);
-    }
 }

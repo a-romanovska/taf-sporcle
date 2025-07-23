@@ -14,7 +14,7 @@ import static io.restassured.RestAssured.given;
 public abstract class BasePage {
     protected String URL;
     protected String propertiesFileName;
-    protected Logger logger = LogManager.getLogger();
+    protected static Logger logger = LogManager.getLogger();
 
     protected BasePage(String endpoint, String propertiesFileName) {
         this.URL = endpoint;

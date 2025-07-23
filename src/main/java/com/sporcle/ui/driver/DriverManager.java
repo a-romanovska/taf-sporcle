@@ -2,6 +2,8 @@ package com.sporcle.ui.driver;
 
 import com.sporcle.enums.Symbol;
 import com.sporcle.ui.Timeouts;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +19,7 @@ public class DriverManager {
     private static WebDriver driver;
     private static String originalWindow;
     private static final int MORE_THAN_ONE = 2;
+    protected static Logger logger = LogManager.getLogger();
 
     private DriverManager() {
     }
@@ -58,7 +61,7 @@ public class DriverManager {
     }
 
     public static void switchToNextWindow() {
-        getOrCheckObjectWhenConditionIsMet(ExpectedConditions.numberOfWindowsToBe(MORE_THAN_ONE));
+        getWebElementWhenConditionIsMet(ExpectedConditions.numberOfWindowsToBe(MORE_THAN_ONE));
 
         Set<String> windowHandles = getDriver().getWindowHandles();
 
@@ -72,61 +75,57 @@ public class DriverManager {
 
     public static boolean checkVisibilityState(By locator, boolean shouldBeVisible) {
         if (shouldBeVisible) {
-            return checkThatObjectBecomesVisible(locator);
+            return becomesVisible(locator);
         } else {
-            return checkThatObjectBecomesInvisible(locator);
+            return becomesInvisible(locator);
         }
     }
 
-    private static boolean checkThatObjectBecomesVisible(By locator) {
+    private static boolean becomesVisible(By locator) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        boolean isVisible = (getOrCheckObjectWhenConditionIsMet(condition) != null);
+        boolean isVisible = (getWebElementWhenConditionIsMet(condition) != null);
         return isVisible;
     }
 
-    private static boolean checkThatObjectBecomesInvisible(By locator) {
+    private static boolean becomesInvisible(By locator) {
         ExpectedCondition<Boolean> condition = ExpectedConditions.invisibilityOfElementLocated(locator);
-        boolean isInvisible = getOrCheckObjectWhenConditionIsMet(condition);
+        boolean isInvisible = getWebElementWhenConditionIsMet(condition);
         return isInvisible;
+    }
+
+    public static boolean attributeBecomesExpected(By locator, String attribute, String expectedValue) {
+        WebElement webElement = getWebElement(locator);
+        ExpectedCondition<Boolean> condition = ExpectedConditions.attributeToBe(webElement, attribute, expectedValue);
+        boolean isExpected = getWebElementWhenConditionIsMet(condition);
+        return isExpected;
     }
 
     public static WebElement getWebElement(By locator) {
         return getDriver().findElement(locator);
     }
 
-    public static boolean checkThatObjectAttributeBecomesExpected(By locator, String attribute, String expectedColor) {
-        WebElement webElement = getWebElement(locator);
-        ExpectedCondition<Boolean> condition = ExpectedConditions.attributeToBe(webElement, attribute, expectedColor);
-        boolean isExpected = getOrCheckObjectWhenConditionIsMet(condition);
-        return isExpected;
-    }
-
-    private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition, int specifiedTimeoutSeconds) {
-        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(specifiedTimeoutSeconds));
-        return wait.until(condition);
-    }
-
-    private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<T> condition) {
-        return getOrCheckObjectWhenConditionIsMet(condition, Timeouts.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS);
-    }
-
-    private static <T> T getOrCheckObjectWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<T> returnClass) {
-        WebElement webElement = DriverManager.getOrCheckObjectWhenConditionIsMet(condition);
-        try {
-            return returnClass.getConstructor(WebElement.class).newInstance(webElement);
-        } catch (Exception e) {
-            System.out.println("Ошибка при создании объекта: " + returnClass.getName());
-            return null;
-        }
-    }
-
     public static <T> T getObjectWhenVisible(By locator, Class<T> returnClass) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.visibilityOfElementLocated(locator);
-        return getOrCheckObjectWhenConditionIsMet(condition, returnClass);
+        return getObjectWhenConditionIsMet(condition, returnClass);
     }
 
     public static <T> T getObjectWhenClickable(By locator, Class<T> returnClass) {
         ExpectedCondition<WebElement> condition = ExpectedConditions.elementToBeClickable(locator);
-        return getOrCheckObjectWhenConditionIsMet(condition, returnClass);
+        return getObjectWhenConditionIsMet(condition, returnClass);
+    }
+
+    private static <T> T getObjectWhenConditionIsMet(ExpectedCondition<WebElement> condition, Class<T> returnClass) {
+        WebElement webElement = DriverManager.getWebElementWhenConditionIsMet(condition);
+        try {
+            return returnClass.getConstructor(WebElement.class).newInstance(webElement);
+        } catch (Exception e) {
+            logger.info("Error when trying to create object " + returnClass.getName());
+            return null;
+        }
+    }
+
+    private static <T> T getWebElementWhenConditionIsMet(ExpectedCondition<T> condition) {
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(Timeouts.DEFAULT_EXPLICIT_WAIT_TIMEOUT_SECONDS));
+        return wait.until(condition);
     }
 }

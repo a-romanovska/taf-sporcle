@@ -1,8 +1,6 @@
 package com.sporcle.ui.forms;
 
 import com.sporcle.ui.elements.Button;
-import com.sporcle.ui.elements.InputField;
-import com.sporcle.ui.elements.Label;
 import com.sporcle.ui.elements.ValidationMessage;
 import io.cucumber.java.en.When;
 import io.qameta.allure.Step;
@@ -29,24 +27,8 @@ public class LogInForm extends BaseForm {
         super(form);
     }
 
-    private Label getEmailLabelWhenVisible() {
-        return getLabelWhenVisible(emailLabel);
-    }
-
-    private InputField getEmailInputFieldWhenVisible() {
-        return getInputFieldWhenVisible(emailInputField);
-    }
-
     public ValidationMessage getEmailValidationMessageWhenVisible() {
         return getValidationMessageWhenVisible(emailValidationMessage);
-    }
-
-    private Label getPasswordLabelWhenVisible() {
-        return getLabelWhenVisible(passwordLabel);
-    }
-
-    private InputField getPasswordInputFieldWhenVisible() {
-        return getInputFieldWhenVisible(passwordInputField);
     }
 
     private ValidationMessage getPasswordValidationMessageWhenVisible() {
@@ -91,30 +73,6 @@ public class LogInForm extends BaseForm {
 
     public String getPasswordValidationMessageText() {
         return getPasswordValidationMessageWhenVisible().getText();
-    }
-
-    public String getEmailLabelColorValue() {
-        return getEmailLabelWhenVisible().getCssValueColor();
-    }
-
-    public String getPasswordLabelColorValue() {
-        return getPasswordLabelWhenVisible().getCssValueColor();
-    }
-
-    public String getEmailValidationMessageColorValue() {
-        return getEmailValidationMessageWhenVisible().getCssValueColor();
-    }
-
-    public String getPasswordValidationMessageColorValue() {
-        return getPasswordValidationMessageWhenVisible().getCssValueColor();
-    }
-
-    public String getEmailInputFieldBorderBottomColorValue() {
-        return getEmailInputFieldWhenVisible().getCssValueBorderBottomColor();
-    }
-
-    public String getPasswordInputFieldBorderBottomColorValue() {
-        return getPasswordInputFieldWhenVisible().getCssValueBorderBottomColor();
     }
 
     public boolean checkEmailLabelColorValue(String expectedColor) {

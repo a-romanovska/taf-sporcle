@@ -42,24 +42,16 @@ public abstract class BaseForm {
 
     protected boolean checkCurrentColor(By locator, String expectedColor) {
         expectedColor = ColorConverterUtils.hexToRgba(expectedColor);
-        return DriverManager.checkThatObjectAttributeBecomesExpected(locator, BaseElement.getColorPropertyName(), expectedColor);
+        return DriverManager.attributeBecomesExpected(locator, BaseElement.getColorPropertyName(), expectedColor);
     }
 
     protected boolean checkCurrentBorderBottomColor(By locator, String expectedColor) {
         expectedColor = ColorConverterUtils.hexToRgba(expectedColor);
-        return DriverManager.checkThatObjectAttributeBecomesExpected(locator, BaseElement.getBorderBottomColorPropertyName(), expectedColor);
+        return DriverManager.attributeBecomesExpected(locator, BaseElement.getBorderBottomColorPropertyName(), expectedColor);
     }
 
     protected BaseElement getElementWhenVisible(By locator, Class<? extends BaseElement> returnElementClass) {
         return DriverManager.getObjectWhenVisible(locator, returnElementClass);
-    }
-
-    protected Label getLabelWhenVisible(By locator) {
-        return (Label) getElementWhenVisible(locator, Label.class);
-    }
-
-    protected InputField getInputFieldWhenVisible(By locator) {
-        return (InputField) getElementWhenVisible(locator, InputField.class);
     }
 
     protected ValidationMessage getValidationMessageWhenVisible(By locator) {
