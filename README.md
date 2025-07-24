@@ -1,22 +1,72 @@
-# sporcle (еще в процессе)
+# taf-cporcle
 
-> Тестовый автоматизированный фреймворк
+#### Романовская Анета, 2025
 
-```
-protected Response getResponse(String endpoint, Map<String, String> headers, Map<String, String> formParams) {
-        return given()
-                .headers(headers)
-                //.body("email=test%40test.xyz&passwd=7298472839432&remember=1")
-                .formParams(formParams)
-                .when()
-                .post(endpoint);
-    }
-```
+Тестовый автоматизированный фреймворк для веб-сайта [Sporcle.com](https://www.sporcle.com/).
 
-[Официальный сайт sporcle](https://www.sporcle.com/)
+## Описание
 
-[Онлайн магазин](https://www.sporcle.com/)
+Проект содержит тесты для проверок:
+- негативных сценариев логина;
+- перехода по страницам через навигационную панель;
+- поиска.
 
-#### Романовская Анета
+## Используемые инструменты
 
-можно добавить картинки (в проекте папка docs) или описать тестовые сценарии. Мб перечисления использованных утилит
+При разработке использованы:
+
+- Java 17;
+- Selenium WebDriver;
+- JUnit 5;
+- Allure Reports;
+- Jenkins (для автоматического запуска тестов и генерации отчетов);
+- Другие библиотеки (указаны в `pom.xml`).
+
+Добавлены классы-утилиты:
+
+- `DriverManager.java` - для работы с драйвером, Singleton;
+- `PropertiesUtils.java` - для чтения properties из ресурсов;
+- `ColorConverterUtils.java` - для перевода цвета из формата HEX в RGBA.
+
+## Тестовые классы
+
+Добавлены тестовые классы для UI:
+
+- `BaseTest.java` - родительский класс, содержит @BeforeEach, @AfterEach методы;
+- `FailedLogInTest.java` - проверка негативных сценариев логина:
+    - логин с невалидными кредами;
+    - логин без пароля;
+    - логин без емейла;
+    - логин без емейла и пароля.
+- `LogInForm.java` - проверка поведения сайта при взаимодействии с элементами формы логина:
+    - закрытие окна по нажатию на *крестик*;
+    - открытие страницы *Community Guidelines*;
+    - открытие нового окна по нажатию на *Continue with Google*;
+    - открытие нового окна по нажатию на *Continue with Apple*;
+    - открытие формы регистрации;
+    - открытие страницы восстановления пароля;
+    - открытие страницы логин через *Facebook*.
+- `ProductBarTest.java` - проверка навигационной панели:
+    - поиск по корректным тестовым данным;
+    - отображение викторин, если в строку поиска введен пробел/пустота;
+    - отображение сообщения об отсутствии результатов.
+
+Cucumber features:
+
+- `search.feature` - сценарии для проверки поиска;
+- `openForm.feature` - сценарии для открытия [Log In] и [Settings] форм.
+
+## Дополнительная информация
+
+Работа организована через классы страниц (PageObject), форм и элементов.
+
+Тестовые креды выбираются из файла `incorrectCredentials.properties`.
+Базовый URL получается из файла `config.properties`.
+
+Дополнительные файлы:
+
+- `Endpoints.java` - используемые URLs;
+- Enums: Color, ErrorMessage, FileExtension, PageTitle, Symbol;
+- `Timeots.java` - используемые таймауты для ожиданий;
+- `User.java` - для генерации почты и пароля;
+- Конфигурационные файлы (`allure.properties`, `log4j2.xml`, `RunnerCucumberTest.java`).
